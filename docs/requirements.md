@@ -10,6 +10,7 @@ The application should let a user trigger voice transcription from anywhere in W
 
 - Feel like a true native Windows 11 application.
 - Support global hotkey driven transcription from any active application.
+- Default to push-to-talk transcription.
 - Provide a visible, low-friction recording/transcription HUD.
 - Run quietly in the system tray when idle.
 - Support configurable startup behavior.
@@ -51,30 +52,32 @@ References:
 
 ### Triggering Transcription
 
-- The user can start and stop transcription with a global hotkey.
+- The user can hold a global hotkey to record and release it to stop recording.
+- Push-to-talk is the default interaction model.
 - The default hotkey should be chosen to avoid common Windows and application shortcuts.
 - The hotkey must be configurable in settings.
-- The app should validate hotkey conflicts where practical.
-- The app should make clear whether the hotkey starts/stops recording, toggles dictation, or performs a push-to-talk action.
+- The app must validate hotkey conflicts when the user configures the hotkey.
+- The app must not accept a hotkey that conflicts with another registered hotkey when that conflict can be detected.
+- Toggle recording may be added as an optional mode later.
 
 ### Recording HUD
 
 - When transcription is active, a compact HUD appears.
+- The HUD should be horizontally centered.
+- The HUD should sit in the lower part of the screen, roughly around the bottom 10% area, but inset above the physical bottom edge.
 - The HUD should feel like a native Windows 11 surface.
 - The HUD should show recording state, audio activity, and transcription progress.
 - The HUD should support a clear stop/cancel affordance.
 - The HUD should avoid stealing focus unnecessarily from the application the user is dictating into.
 - The HUD should handle loading, recording, transcribing, error, and completed states.
+- The HUD should dismiss automatically after transcription completes and the resulting text is inserted.
 
 ### Transcription Result
 
 - The app records audio and sends it to a configured transcription provider.
 - The app should support real-time or near-real-time transcription where the selected provider supports it.
-- The app should define how transcribed text is delivered:
-  - copy to clipboard,
-  - insert into the active text field,
-  - display for manual copy,
-  - or another explicit behavior chosen during design.
+- The app should insert final transcribed text into the active text field by default.
+- Clipboard copy and HUD display may be available as fallback or secondary behaviors.
 - The app should preserve enough metadata for debugging, such as provider name, duration, and error state, without exposing sensitive audio content unnecessarily.
 
 ## Functional Requirements
@@ -86,9 +89,13 @@ References:
 - Configurable global hotkey.
 - Audio recording from the default microphone.
 - Recording/transcription HUD.
-- At least one external transcription provider integration.
+- OpenAI transcription provider integration.
+- Mistral AI transcription provider integration.
 - Provider abstraction that allows additional cloud or local providers.
 - Settings UI for hotkey, provider configuration, microphone selection if feasible, and startup behavior.
+- API key entry in settings for each provider.
+- Secure API key storage using Windows-appropriate credential storage.
+- Persistent transcript history.
 - Clear error handling for missing microphone permissions, unavailable provider credentials, network failures, and provider failures.
 
 ### Should Have
@@ -98,7 +105,6 @@ References:
 - API key or credential configuration flow.
 - Audio level visualization during recording.
 - Partial transcription display for providers that support streaming.
-- Final transcript history for the current session.
 - Secure handling of credentials using Windows-appropriate storage.
 - Logging that helps diagnose failures without recording sensitive transcript/audio content by default.
 
@@ -107,10 +113,10 @@ References:
 - Local transcription provider integration.
 - Multiple language support.
 - Custom vocabulary or prompt/context support.
-- Push-to-talk mode in addition to toggle mode.
+- Toggle recording mode in addition to push-to-talk.
 - Per-provider advanced settings.
 - Export transcript history.
-- Optional automatic insertion into the foreground application.
+- Clipboard-only mode for workflows where active text insertion is not desirable.
 
 ## Non-Goals
 
@@ -125,6 +131,11 @@ References:
 ## Provider Architecture Requirements
 
 The transcription subsystem should be provider-based.
+
+The initial cloud providers are:
+
+- OpenAI.
+- Mistral AI.
 
 Each provider should expose a common contract for:
 
@@ -145,6 +156,7 @@ The app should not bind core UI workflow directly to one provider's API shape. A
 - Do not record silently.
 - Avoid storing audio by default after transcription completes.
 - Store credentials securely using Windows-appropriate facilities.
+- Store provider API keys outside plain-text app configuration, using Windows Credential Manager or an equivalent Windows-native secure credential mechanism.
 - Do not log raw audio, full transcripts, or credentials by default.
 - Provide clear errors when credentials or microphone access are missing.
 - Prefer explicit user control before sending audio to external services.
@@ -152,7 +164,8 @@ The app should not bind core UI workflow directly to one provider's API shape. A
 ## Packaging and Distribution Requirements
 
 - The app should be buildable on Windows 11 with current Microsoft tooling.
-- Packaging should be compatible with normal Windows 11 installation expectations.
+- Packaging should be part of the application from the start.
+- The initial packaging target should be MSIX unless a Windows App SDK constraint forces a different documented choice.
 - Startup integration should work through an appropriate Windows mechanism for the chosen packaging model.
 - The repository should document any Windows-side setup needed because agents may be operating from WSL2.
 
@@ -167,13 +180,24 @@ This repository should support coordinated agent work by maintaining:
 - Testable boundaries for provider logic, hotkey handling, recording lifecycle, and settings.
 - A bias toward small, reviewable implementation steps.
 
+## Resolved Product Decisions
+
+- Initial transcription providers: OpenAI and Mistral AI.
+- Default interaction model: push-to-talk.
+- Default transcript delivery: insert into the active text field.
+- Packaging: include MSIX packaging from the start.
+- Credential entry: allow users to paste provider API keys into the app settings UI.
+- Credential storage: keep API keys in Windows-native secure credential storage, not plain-text settings.
+- Transcript history: include persistent transcript history in v1.
+- HUD placement: horizontally centered near the lower portion of the screen, inset above the bottom edge.
+- HUD dismissal: automatic after transcription completes and text insertion finishes.
+- Hotkey conflicts: flag conflicts during configuration and do not accept conflicting hotkeys where detection is possible.
+
 ## Open Decisions
 
-- Which first transcription provider should be implemented?
-- Should the default interaction be toggle recording or push-to-talk?
-- What should happen to the final transcript by default: clipboard, active text insertion, HUD display, or a combination?
-- Should the initial app be packaged as MSIX from the start, or should packaging come after the first working prototype?
-- Which credential storage mechanism should be used for the first provider?
-- Should transcript history exist in v1, and if so, should it persist across restarts?
-- How should the HUD be positioned and dismissed?
-- What is the expected behavior when the configured global hotkey conflicts with another app?
+- Which OpenAI transcription API/model should be used first?
+- Which Mistral AI transcription API/model should be used first?
+- What fallback should the app use when active text insertion fails?
+- Should transcript history store full transcript text by default, or only metadata unless the user opts in?
+- What retention controls should exist for persistent transcript history?
+- What exact default hotkey should be assigned?
