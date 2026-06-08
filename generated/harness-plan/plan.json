@@ -1,0 +1,781 @@
+{
+  "version": 1,
+  "source": {
+    "requirements_path": "docs/requirements.md",
+    "generated_at": "deterministic-dry-run"
+  },
+  "project": {
+    "title": "Voice Transcription Harness Execution",
+    "description": "Dependency-aware execution plan for building the native Windows 11 voice transcription app through coordinated agents.",
+    "fields": [
+      "Status",
+      "Phase",
+      "Agent",
+      "Parallel Group",
+      "Blocked By",
+      "Review State",
+      "CI State"
+    ]
+  },
+  "labels": [
+    {
+      "name": "type:foundation",
+      "color": "5319E7",
+      "description": "Foundational work that unlocks later issues."
+    },
+    {
+      "name": "type:implementation",
+      "color": "0E8A16",
+      "description": "Product or harness implementation work."
+    },
+    {
+      "name": "type:research",
+      "color": "FBCA04",
+      "description": "Research or decision-support work."
+    },
+    {
+      "name": "type:testing",
+      "color": "1D76DB",
+      "description": "Testing or validation work."
+    },
+    {
+      "name": "type:documentation",
+      "color": "6F42C1",
+      "description": "Documentation work."
+    },
+    {
+      "name": "area:windows-app",
+      "color": "0078D4",
+      "description": "Native Windows application area."
+    },
+    {
+      "name": "area:provider",
+      "color": "0B7285",
+      "description": "Transcription provider architecture or implementation."
+    },
+    {
+      "name": "area:ui",
+      "color": "D93F0B",
+      "description": "User interface and user experience work."
+    },
+    {
+      "name": "area:ci",
+      "color": "24292F",
+      "description": "CI, test, or automation work."
+    },
+    {
+      "name": "area:harness",
+      "color": "8250DF",
+      "description": "Harness orchestration system work."
+    },
+    {
+      "name": "agent:codex",
+      "color": "0969DA",
+      "description": "Recommended for Codex."
+    },
+    {
+      "name": "agent:claude",
+      "color": "A855F7",
+      "description": "Recommended for Claude Code."
+    },
+    {
+      "name": "agent:either",
+      "color": "BFDADC",
+      "description": "Suitable for either agent."
+    },
+    {
+      "name": "phase:0",
+      "color": "D4C5F9",
+      "description": "Harness and repository setup phase."
+    },
+    {
+      "name": "phase:1",
+      "color": "BFD4F2",
+      "description": "Application foundation phase."
+    },
+    {
+      "name": "phase:2",
+      "color": "ACE5B1",
+      "description": "Core transcription workflow phase."
+    },
+    {
+      "name": "phase:3",
+      "color": "FAD8C7",
+      "description": "Provider and settings phase."
+    },
+    {
+      "name": "phase:4",
+      "color": "F2CC60",
+      "description": "Polish, packaging, and release-readiness phase."
+    },
+    {
+      "name": "priority:p0",
+      "color": "B60205",
+      "description": "Critical path."
+    },
+    {
+      "name": "priority:p1",
+      "color": "D1242F",
+      "description": "High priority."
+    },
+    {
+      "name": "priority:p2",
+      "color": "FBCA04",
+      "description": "Normal priority."
+    },
+    {
+      "name": "status:ready",
+      "color": "0E8A16",
+      "description": "Ready for assignment."
+    },
+    {
+      "name": "status:blocked",
+      "color": "B60205",
+      "description": "Blocked and needs attention."
+    },
+    {
+      "name": "review:greptile",
+      "color": "5319E7",
+      "description": "Requires Greptile review handling."
+    },
+    {
+      "name": "review:cross-agent",
+      "color": "A855F7",
+      "description": "Requires cross-agent review."
+    },
+    {
+      "name": "ci:required",
+      "color": "24292F",
+      "description": "CI must pass before merge."
+    }
+  ],
+  "milestones": [
+    {
+      "title": "M0 Harness Orchestration",
+      "description": "Reusable harness artifacts, generation, validation, GitHub workflow, CI, and tmux orchestration."
+    },
+    {
+      "title": "M1 Native Windows App Foundation",
+      "description": "Windows App SDK/WinUI app shell, packaging, tray, startup, and settings foundation."
+    },
+    {
+      "title": "M2 Recording And Insertion Workflow",
+      "description": "Push-to-talk capture, HUD, active text insertion, clipboard fallback, and transcript history."
+    },
+    {
+      "title": "M3 Provider Integrations",
+      "description": "Provider abstraction, secure credentials, OpenAI, Mistral AI, and provider selection."
+    },
+    {
+      "title": "M4 Polish And Release Readiness",
+      "description": "Design polish, diagnostics, final CI coverage, packaging validation, and release documentation."
+    }
+  ],
+  "issues": [
+    {
+      "id": "VT-001",
+      "title": "Select native Windows app stack and repository structure",
+      "milestone": "M1 Native Windows App Foundation",
+      "phase": "phase:1",
+      "parallel_group": "foundation",
+      "agent": "codex",
+      "labels": [
+        "type:foundation",
+        "area:windows-app",
+        "agent:codex",
+        "phase:1",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [],
+      "outcome": "Document and scaffold the chosen Windows App SDK/WinUI 3 solution structure without implementing app features.",
+      "scope": [
+        "Create the initial native Windows solution/project structure.",
+        "Document Windows-side prerequisites required from WSL2.",
+        "Keep the app target Windows 11 only."
+      ],
+      "acceptance_criteria": [
+        "Repository contains a native Windows app skeleton plan or scaffold aligned with Windows App SDK and WinUI 3.",
+        "Build prerequisites are documented for Windows 11.",
+        "No Electron or browser-wrapper app shell is introduced."
+      ],
+      "review_plan": [
+        "Codex implementation review for architecture and build viability.",
+        "Claude review for native app UX implications."
+      ],
+      "ci_expectations": [
+        "Harness validation passes.",
+        "Future Windows build command is documented even if not yet runnable from WSL2."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-002",
+      "title": "Add Windows packaging and startup foundation",
+      "milestone": "M1 Native Windows App Foundation",
+      "phase": "phase:1",
+      "parallel_group": "foundation",
+      "agent": "codex",
+      "labels": [
+        "type:foundation",
+        "area:windows-app",
+        "agent:codex",
+        "phase:1",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-001"
+      ],
+      "outcome": "Establish MSIX-first packaging and startup integration direction.",
+      "scope": [
+        "Add packaging project or documented packaging scaffold.",
+        "Define startup toggle integration for the selected packaging model.",
+        "Document signing and local developer constraints."
+      ],
+      "acceptance_criteria": [
+        "Packaging is included from the start or a documented Windows App SDK blocker is recorded.",
+        "Startup toggle path is documented and testable.",
+        "CI strategy includes packaging validation expectations."
+      ],
+      "review_plan": [
+        "Codex reviews Windows packaging correctness.",
+        "Claude reviews settings/startup UX clarity."
+      ],
+      "ci_expectations": [
+        "Packaging-related scripts or docs pass harness validation."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-003",
+      "title": "Implement app-owned transcription architecture interfaces",
+      "milestone": "M1 Native Windows App Foundation",
+      "phase": "phase:1",
+      "parallel_group": "foundation",
+      "agent": "codex",
+      "labels": [
+        "type:foundation",
+        "area:provider",
+        "agent:codex",
+        "phase:1",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-001"
+      ],
+      "outcome": "Create provider, recorder, insertion, history, and settings contracts that reflect ADR 0001.",
+      "scope": [
+        "Define provider abstraction interfaces.",
+        "Define insertion adapter boundary.",
+        "Define transcript history data contract.",
+        "Define secure credential storage boundary."
+      ],
+      "acceptance_criteria": [
+        "OpenAI, Mistral AI, and future local providers fit the same provider contract.",
+        "Insertion can be replaced later without rewriting providers or recorder logic.",
+        "Contracts are covered by unit tests or compile-time checks once app code exists."
+      ],
+      "review_plan": [
+        "Codex reviews architecture boundaries.",
+        "Claude reviews whether UI-facing contracts support design needs."
+      ],
+      "ci_expectations": [
+        "Unit test strategy for contracts is documented or implemented."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-004",
+      "title": "Design settings UI for provider, hotkey, startup, and history controls",
+      "milestone": "M1 Native Windows App Foundation",
+      "phase": "phase:1",
+      "parallel_group": "foundation-parallel",
+      "agent": "claude",
+      "labels": [
+        "type:implementation",
+        "area:ui",
+        "agent:claude",
+        "phase:1",
+        "priority:p1",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-001",
+        "VT-003"
+      ],
+      "outcome": "Create a native Windows 11 settings experience design for provider selection and core preferences.",
+      "scope": [
+        "Provider selection with exactly one active provider.",
+        "API key entry affordance per provider.",
+        "Global hotkey configuration and conflict feedback.",
+        "Startup toggle.",
+        "Transcript retention and clear-history controls."
+      ],
+      "acceptance_criteria": [
+        "Settings surface follows Windows 11 design guidance.",
+        "Provider credentials and active provider state are visually distinct.",
+        "History retention defaults to 30 days and supports manual clearing."
+      ],
+      "review_plan": [
+        "Claude primary design review.",
+        "Codex reviews implementation feasibility and settings/state boundaries."
+      ],
+      "ci_expectations": [
+        "UI snapshot or design artifact is attached once the app UI exists."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-005",
+      "title": "Implement global push-to-talk hotkey handling",
+      "milestone": "M2 Recording And Insertion Workflow",
+      "phase": "phase:2",
+      "parallel_group": "recording",
+      "agent": "codex",
+      "labels": [
+        "type:implementation",
+        "area:windows-app",
+        "agent:codex",
+        "phase:2",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-001",
+        "VT-003"
+      ],
+      "outcome": "Implement configurable global push-to-talk hotkey handling with conflict detection.",
+      "scope": [
+        "Default hotkey is Ctrl+Win+H.",
+        "Press starts recording and release stops recording.",
+        "Settings validation rejects detectable conflicts."
+      ],
+      "acceptance_criteria": [
+        "Hotkey lifecycle is testable.",
+        "Conflict detection failure is shown to the user.",
+        "The app does not accept a detected conflicting hotkey."
+      ],
+      "review_plan": [
+        "Codex reviews Windows API correctness.",
+        "Claude reviews user feedback for conflicts."
+      ],
+      "ci_expectations": [
+        "Unit or integration tests cover hotkey state transitions where possible."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-006",
+      "title": "Implement microphone recording lifecycle",
+      "milestone": "M2 Recording And Insertion Workflow",
+      "phase": "phase:2",
+      "parallel_group": "recording",
+      "agent": "codex",
+      "labels": [
+        "type:implementation",
+        "area:windows-app",
+        "agent:codex",
+        "phase:2",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-003",
+        "VT-005"
+      ],
+      "outcome": "Capture audio from the default microphone for push-to-talk transcription.",
+      "scope": [
+        "Start/stop recording follows hotkey state.",
+        "Missing microphone permission or device failure produces clear errors.",
+        "Audio is not retained by default after transcription completes."
+      ],
+      "acceptance_criteria": [
+        "Recorder exposes audio data in the provider-required format or through a conversion path.",
+        "Cancellation and failure are handled.",
+        "Audio level information is available for the HUD where feasible."
+      ],
+      "review_plan": [
+        "Codex reviews recording lifecycle and cleanup.",
+        "Claude reviews error visibility requirements."
+      ],
+      "ci_expectations": [
+        "Recorder tests or documented manual smoke test exists."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-007",
+      "title": "Design and implement recording HUD",
+      "milestone": "M2 Recording And Insertion Workflow",
+      "phase": "phase:2",
+      "parallel_group": "recording-parallel",
+      "agent": "claude",
+      "labels": [
+        "type:implementation",
+        "area:ui",
+        "agent:claude",
+        "phase:2",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-001",
+        "VT-003"
+      ],
+      "outcome": "Create the compact Windows 11 HUD for recording, transcribing, error, and completed states.",
+      "scope": [
+        "HUD is horizontally centered near the lower screen area and inset above the bottom edge.",
+        "HUD shows recording state, audio activity, and transcription progress.",
+        "HUD dismisses automatically after insertion completes."
+      ],
+      "acceptance_criteria": [
+        "HUD does not steal focus unnecessarily.",
+        "All required states are represented.",
+        "Text and controls fit across expected desktop scaling conditions."
+      ],
+      "review_plan": [
+        "Claude reviews visual and interaction quality.",
+        "Codex reviews state-machine integration."
+      ],
+      "ci_expectations": [
+        "UI smoke test or manual verification checklist exists."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-008",
+      "title": "Implement transcript insertion and clipboard fallback",
+      "milestone": "M2 Recording And Insertion Workflow",
+      "phase": "phase:2",
+      "parallel_group": "insertion",
+      "agent": "codex",
+      "labels": [
+        "type:implementation",
+        "area:windows-app",
+        "agent:codex",
+        "phase:2",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-003",
+        "VT-006"
+      ],
+      "outcome": "Insert final transcripts into the active text target and fall back to clipboard on failure.",
+      "scope": [
+        "Active text insertion is the default delivery path.",
+        "Clipboard fallback runs when insertion fails.",
+        "Fallback is visible to the user and history retains the transcript."
+      ],
+      "acceptance_criteria": [
+        "Insertion adapter has a clear success/failure contract.",
+        "Clipboard fallback is tested or manually smoke-tested.",
+        "Failure does not drop transcript text."
+      ],
+      "review_plan": [
+        "Codex reviews Windows insertion behavior.",
+        "Claude reviews fallback notification UX."
+      ],
+      "ci_expectations": [
+        "Tests cover insertion success and fallback paths where feasible."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-009",
+      "title": "Implement persistent transcript history",
+      "milestone": "M2 Recording And Insertion Workflow",
+      "phase": "phase:2",
+      "parallel_group": "history",
+      "agent": "codex",
+      "labels": [
+        "type:implementation",
+        "area:windows-app",
+        "agent:codex",
+        "phase:2",
+        "priority:p1",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-003",
+        "VT-008"
+      ],
+      "outcome": "Persist full transcript text by default with retention and clear-history controls.",
+      "scope": [
+        "Store full transcript text by default.",
+        "Default retention is 30 days.",
+        "Support manual clearing.",
+        "Do not log full transcripts by default."
+      ],
+      "acceptance_criteria": [
+        "History storage is bounded by retention settings.",
+        "Clear-history action removes stored transcript text.",
+        "History entries include provider and timing metadata."
+      ],
+      "review_plan": [
+        "Codex reviews privacy and storage behavior.",
+        "Claude reviews history UI affordances."
+      ],
+      "ci_expectations": [
+        "History retention logic has unit coverage."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-010",
+      "title": "Implement secure credential storage",
+      "milestone": "M3 Provider Integrations",
+      "phase": "phase:3",
+      "parallel_group": "providers",
+      "agent": "codex",
+      "labels": [
+        "type:implementation",
+        "area:provider",
+        "agent:codex",
+        "phase:3",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-003",
+        "VT-004"
+      ],
+      "outcome": "Store provider API keys using Windows-native secure credential storage.",
+      "scope": [
+        "API keys are entered through settings.",
+        "Keys are not stored in plain-text app configuration.",
+        "Credential failures are surfaced clearly."
+      ],
+      "acceptance_criteria": [
+        "Credential storage uses Windows Credential Manager or equivalent Windows-native secure storage.",
+        "Provider adapters can retrieve keys without exposing them in logs.",
+        "Deleting a provider credential is supported."
+      ],
+      "review_plan": [
+        "Codex reviews security boundary.",
+        "Claude reviews settings clarity around saved credentials."
+      ],
+      "ci_expectations": [
+        "Credential storage behavior has tests or documented manual verification."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-011",
+      "title": "Implement OpenAI transcription provider",
+      "milestone": "M3 Provider Integrations",
+      "phase": "phase:3",
+      "parallel_group": "providers-parallel",
+      "agent": "codex",
+      "labels": [
+        "type:implementation",
+        "area:provider",
+        "agent:codex",
+        "phase:3",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-003",
+        "VT-006",
+        "VT-010"
+      ],
+      "outcome": "Integrate OpenAI transcription through the provider abstraction.",
+      "scope": [
+        "Use the latest best OpenAI transcription direction from official docs.",
+        "Support configured API key retrieval.",
+        "Normalize provider errors.",
+        "Support cancellation where possible."
+      ],
+      "acceptance_criteria": [
+        "OpenAI provider implements the common provider contract.",
+        "Provider can be selected as the active provider.",
+        "Network and credential failures are user-visible and not logged with secrets."
+      ],
+      "review_plan": [
+        "Codex reviews API integration and error normalization.",
+        "Claude reviews user-facing provider error messages."
+      ],
+      "ci_expectations": [
+        "Provider contract tests or mocked integration tests exist."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-012",
+      "title": "Implement Mistral AI transcription provider",
+      "milestone": "M3 Provider Integrations",
+      "phase": "phase:3",
+      "parallel_group": "providers-parallel",
+      "agent": "codex",
+      "labels": [
+        "type:implementation",
+        "area:provider",
+        "agent:codex",
+        "phase:3",
+        "priority:p1",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-003",
+        "VT-006",
+        "VT-010"
+      ],
+      "outcome": "Integrate Mistral AI transcription through the provider abstraction.",
+      "scope": [
+        "Use the latest best Mistral transcription direction from official docs.",
+        "Support configured API key retrieval.",
+        "Normalize provider errors.",
+        "Support cancellation where possible."
+      ],
+      "acceptance_criteria": [
+        "Mistral provider implements the common provider contract.",
+        "Provider can be selected as the active provider.",
+        "Network and credential failures are user-visible and not logged with secrets."
+      ],
+      "review_plan": [
+        "Codex reviews API integration and error normalization.",
+        "Claude reviews user-facing provider error messages."
+      ],
+      "ci_expectations": [
+        "Provider contract tests or mocked integration tests exist."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-013",
+      "title": "Implement system tray controls and idle behavior",
+      "milestone": "M1 Native Windows App Foundation",
+      "phase": "phase:1",
+      "parallel_group": "foundation-parallel",
+      "agent": "codex",
+      "labels": [
+        "type:implementation",
+        "area:windows-app",
+        "agent:codex",
+        "phase:1",
+        "priority:p1",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-001"
+      ],
+      "outcome": "Run quietly in the system tray with app status and basic actions.",
+      "scope": [
+        "Tray icon indicates app availability.",
+        "Tray menu exposes settings and exit.",
+        "Idle behavior does not interrupt foreground work."
+      ],
+      "acceptance_criteria": [
+        "Tray integration works with the selected app model.",
+        "Settings can be opened from tray.",
+        "Exit cleanly releases hotkey and recording resources."
+      ],
+      "review_plan": [
+        "Codex reviews tray lifecycle.",
+        "Claude reviews tray menu wording and UX."
+      ],
+      "ci_expectations": [
+        "Manual smoke test checklist exists for tray behavior."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-014",
+      "title": "Add native app CI and test harness",
+      "milestone": "M4 Polish And Release Readiness",
+      "phase": "phase:4",
+      "parallel_group": "release",
+      "agent": "codex",
+      "labels": [
+        "type:testing",
+        "area:ci",
+        "agent:codex",
+        "phase:4",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-001"
+      ],
+      "outcome": "Create fast Windows app CI with agent-readable failure summaries.",
+      "scope": [
+        "Define unit, integration, UI smoke, and packaging validation layers.",
+        "Keep CI economical and segmented.",
+        "Emit concise machine-readable failure summaries."
+      ],
+      "acceptance_criteria": [
+        "CI runs harness validation and app tests appropriate to the current scaffold.",
+        "Failure artifact points to failing check, files, and likely owner.",
+        "Logs are segmented and not unnecessarily noisy."
+      ],
+      "review_plan": [
+        "Codex reviews CI correctness.",
+        "Claude reviews human readability of CI output."
+      ],
+      "ci_expectations": [
+        "GitHub Actions workflow passes on the repository."
+      ],
+      "notes": []
+    },
+    {
+      "id": "VT-015",
+      "title": "Polish settings, HUD, and transcript history UX",
+      "milestone": "M4 Polish And Release Readiness",
+      "phase": "phase:4",
+      "parallel_group": "release",
+      "agent": "claude",
+      "labels": [
+        "type:implementation",
+        "area:ui",
+        "agent:claude",
+        "phase:4",
+        "priority:p1",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-004",
+        "VT-007",
+        "VT-009",
+        "VT-011",
+        "VT-012"
+      ],
+      "outcome": "Refine the native Windows 11 user experience across settings, HUD, and history.",
+      "scope": [
+        "Ensure controls are compact, clear, and native-feeling.",
+        "Verify provider selection and credential states are understandable.",
+        "Verify history deletion and retention controls are easy to find."
+      ],
+      "acceptance_criteria": [
+        "UI fits without overlap at common desktop scaling settings.",
+        "User-facing copy is concise and actionable.",
+        "Claude and Codex reviews agree the UI is ready for release candidate testing."
+      ],
+      "review_plan": [
+        "Claude primary design review.",
+        "Codex reviews implementation integration and accessibility risks."
+      ],
+      "ci_expectations": [
+        "UI smoke artifacts or screenshots are attached where possible."
+      ],
+      "notes": []
+    }
+  ]
+}

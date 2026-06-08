@@ -1,0 +1,38 @@
+name: Harness CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate-harness:
+    name: Validate harness artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Compile Python scripts
+        run: |
+          python3 -m py_compile scripts/harness_plan.py scripts/github_apply_plan.py scripts/tmux_orchestrator.py
+
+      - name: Regenerate dry-run plan
+        run: |
+          python3 scripts/harness_plan.py generate --requirements docs/requirements.md --output generated/harness-plan
+
+      - name: Validate generated plan
+        run: |
+          python3 scripts/harness_plan.py validate --plan generated/harness-plan/plan.json
+
+      - name: Check generated plan is committed
+        run: |
+          git diff --exit-code -- generated/harness-plan
+
+      - name: Upload CI summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-summary
+          path: artifacts/ci-summary.json
+          if-no-files-found: warn

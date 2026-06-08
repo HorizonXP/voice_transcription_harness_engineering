@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/harness-plan.schema.json",
+  "title": "Harness Plan",
+  "type": "object",
+  "required": ["version", "source", "project", "labels", "milestones", "issues"],
+  "properties": {
+    "version": { "type": "integer", "const": 1 },
+    "source": {
+      "type": "object",
+      "required": ["requirements_path", "generated_at"],
+      "properties": {
+        "requirements_path": { "type": "string" },
+        "generated_at": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "project": {
+      "type": "object",
+      "required": ["title", "description", "fields"],
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "fields": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "color", "description"],
+        "properties": {
+          "name": { "type": "string" },
+          "color": { "type": "string", "pattern": "^[0-9A-Fa-f]{6}$" },
+          "description": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "description"],
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "milestone", "phase", "parallel_group", "agent", "labels", "dependencies", "outcome", "scope", "acceptance_criteria", "review_plan", "ci_expectations"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Z]+-[0-9]{3}$" },
+          "title": { "type": "string" },
+          "milestone": { "type": "string" },
+          "phase": { "type": "string" },
+          "parallel_group": { "type": "string" },
+          "agent": { "type": "string", "enum": ["codex", "claude", "either"] },
+          "labels": {
+            "type": "array",
+            "items": { "type": "string" },
+            "uniqueItems": true
+          },
+          "dependencies": {
+            "type": "array",
+            "items": { "type": "string" },
+            "uniqueItems": true
+          },
+          "outcome": { "type": "string" },
+          "scope": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1
+          },
+          "acceptance_criteria": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 2
+          },
+          "review_plan": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1
+          },
+          "ci_expectations": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1
+          },
+          "notes": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

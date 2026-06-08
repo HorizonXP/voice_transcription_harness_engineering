@@ -1,0 +1,51 @@
+name: Harness Task
+description: Structured task for coordinated agent work.
+title: "[Harness] "
+labels: ["area:harness", "status:ready"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for manually created harness tasks. Generated tasks should come from `scripts/harness_plan.py`.
+  - type: input
+    id: harness-id
+    attributes:
+      label: Harness ID
+      description: Stable ID, if this task comes from a generated plan.
+      placeholder: VT-001
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome
+      description: What should be true when this task is complete?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Checklist of externally verifiable completion criteria.
+      value: |
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true
+  - type: textarea
+    id: review
+    attributes:
+      label: Review Plan
+      description: Who or what should review this work?
+      value: |
+        - [ ] Greptile review handled if a PR is opened.
+        - [ ] Cross-agent review completed if applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: ci
+    attributes:
+      label: CI Expectations
+      description: Checks that should pass before merge.
+      value: |
+        - [ ] Harness validation passes.
+    validations:
+      required: true
