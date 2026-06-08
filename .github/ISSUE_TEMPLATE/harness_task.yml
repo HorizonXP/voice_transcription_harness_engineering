@@ -50,7 +50,7 @@ body:
         | --- | --- |
         | Phase |  |
         | Parallel Group |  |
-        | Dependencies |  |
+        | Blocked By |  |
         | Branch |  |
     validations:
       required: true

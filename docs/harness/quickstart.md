@@ -70,10 +70,12 @@ Review:
 
 The checked-in plan is a deterministic sample. The intended production planning loop is:
 
-1. Codex GPT-5.5 extra-high produces the draft decomposition.
-2. Claude Code Opus 4.8 extra-high critiques the plan.
-3. Codex GPT-5.5 extra-high reconciles the critique.
+1. Codex (extra-high reasoning) produces the draft decomposition.
+2. Claude Code (extra-high reasoning) critiques the plan.
+3. Codex (extra-high reasoning) reconciles the critique.
 4. The harness validates, renders, and applies the final plan only after approval.
+
+Check current local model availability before starting this loop. Do not silently downgrade the planner or critic if the requested effort level is unavailable.
 
 ## Start tmux Sessions
 
