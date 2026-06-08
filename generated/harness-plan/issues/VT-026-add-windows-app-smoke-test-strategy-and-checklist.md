@@ -1,6 +1,6 @@
-# Select native Windows app stack and repository structure
+# Add Windows app smoke test strategy and checklist
 
-> Harness ID: `VT-001`
+> Harness ID: `VT-026`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,60 +9,61 @@
 
 ## Outcome
 
-Document and scaffold the chosen Windows App SDK/WinUI 3 solution structure without implementing app features.
+Define a practical Windows 11 smoke test strategy that is fast enough for CI and useful for release confidence.
 
 ## Work Metadata
 
 | Field | Value |
 | --- | --- |
-| Milestone | M1 Native Windows App Foundation |
-| Phase | `phase:1` |
-| Parallel Group | `foundation` |
+| Milestone | M4 Polish And Release Readiness |
+| Phase | `phase:4` |
+| Parallel Group | `testing-strategy` |
 | Recommended Agent | `agent:codex` |
 | Recommended Model | GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty |
 | Reasoning Effort | `medium` |
 | Agent Command | `codex` |
-| Dependencies | `None` |
-| Labels | `type:foundation`, `area:windows-app`, `agent:codex`, `phase:1`, `priority:p0`, `ci:required`, `review:cross-agent` |
+| Dependencies | `VT-001`, `VT-014` |
+| Labels | `type:testing`, `area:ci`, `area:windows-app`, `agent:codex`, `phase:4`, `priority:p1`, `ci:required`, `review:cross-agent` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_001[VT-001]
-    Start([Ready]) --> VT_001
+    VT_026[VT-026]
+    VT_001[VT-001] --> VT_026
+    VT_014[VT-014] --> VT_026
 ```
 
 ## Scope
 
-- [ ] Create the initial native Windows solution/project structure.
-- [ ] Document Windows-side prerequisites required from WSL2.
-- [ ] Keep the app target Windows 11 only.
+- [ ] Document unit, integration, UI, packaging, and manual smoke layers.
+- [ ] Define which checks run on every PR versus release candidate.
+- [ ] Define expected artifacts for UI and packaging checks.
 
 ## Prescribed Implementation Plan
 
 - [ ] Read docs/requirements.md and relevant ADRs before editing.
 - [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Create the initial native Windows solution/project structure.
-- [ ] Implement: Document Windows-side prerequisites required from WSL2.
-- [ ] Implement: Keep the app target Windows 11 only.
-- [ ] Verify: Repository contains a native Windows app skeleton plan or scaffold aligned with Windows App SDK and WinUI 3.
-- [ ] Verify: Build prerequisites are documented for Windows 11.
-- [ ] Verify: No Electron or browser-wrapper app shell is introduced.
+- [ ] Implement: Document unit, integration, UI, packaging, and manual smoke layers.
+- [ ] Implement: Define which checks run on every PR versus release candidate.
+- [ ] Implement: Define expected artifacts for UI and packaging checks.
+- [ ] Verify: Testing strategy avoids hours-long CI runs.
+- [ ] Verify: Failures point to likely file/test owner.
+- [ ] Verify: Windows-specific checks are separated from fast harness checks.
 - [ ] Run the issue-specific test command and record the result in the PR.
 - [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
 
 ## Expected Files Or Areas
 
-- `src/**`
-- `tests/**`
-- `docs/** when implementation choices need explanation`
+- `.github/workflows/**`
+- `scripts/**`
+- `docs/harness/ci-strategy.md`
 
 ## Acceptance Criteria
 
-- [ ] Repository contains a native Windows app skeleton plan or scaffold aligned with Windows App SDK and WinUI 3.
-- [ ] Build prerequisites are documented for Windows 11.
-- [ ] No Electron or browser-wrapper app shell is introduced.
+- [ ] Testing strategy avoids hours-long CI runs.
+- [ ] Failures point to likely file/test owner.
+- [ ] Windows-specific checks are separated from fast harness checks.
 
 ## Constraints
 
@@ -71,6 +72,7 @@ flowchart LR
 - Preserve user changes and generated harness IDs.
 - If a decision is low-risk and reversible, use judgment and document it.
 - Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell.
+- CI logs must stay segmented and concise; add machine-readable summaries for failures.
 
 <details>
 <summary>Failure modes and escalation rules</summary>
@@ -78,6 +80,7 @@ flowchart LR
 - Acceptance criteria are ambiguous after reading the requirements.
 - Required local or Windows-side tool is missing.
 - Implementation requires a product/security/architecture decision not already recorded.
+- CI produces noisy logs or lacks a machine-readable failure artifact.
 
 If one of these occurs, stop and report:
 
@@ -91,13 +94,12 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Codex implementation review for architecture and build viability.
-- [ ] Claude review for native app UX implications.
+- [ ] Codex reviews test architecture.
+- [ ] Claude reviews UI verification coverage.
 
 ## CI Expectations
 
-- [ ] Harness validation passes.
-- [ ] Future Windows build command is documented even if not yet runnable from WSL2.
+- [ ] Docs and CI expectations are consistent.
 
 ## Notes
 
@@ -105,15 +107,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-001-select-native-windows-app-stack-and-repository-structure` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-026-add-windows-app-smoke-test-strategy-and-checklist` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-001: Select native Windows app stack and repository structure.
+You are working on VT-026: Add Windows app smoke test strategy and checklist.
 
 Recommended model/effort: GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty / medium.
-Primary objective: Document and scaffold the chosen Windows App SDK/WinUI 3 solution structure without implementing app features.
+Primary objective: Define a practical Windows 11 smoke test strategy that is fast enough for CI and useful for release confidence.
 
 Read:
 - docs/requirements.md

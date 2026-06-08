@@ -60,6 +60,20 @@ Default assignment:
 - `agent:claude` for HUD, settings UI, native visual polish, interaction details, and design-system alignment.
 - `agent:either` for documentation, issue templates, small glue scripts, and low-risk cleanup.
 
+## Model And Reasoning Policy
+
+Generated issues must prescribe model and reasoning effort.
+
+- Use GPT-5.5 extra-high reasoning through the local Codex CLI for requirements decomposition and issue planning.
+- Use GPT-5.5 through the local Codex CLI for Codex workers.
+- Use low reasoning only when the issue has narrow scope, clear acceptance criteria, and no architectural/security/API ambiguity.
+- Use medium reasoning for foundation, Windows integration, provider, CI, security, review-loop, and test infrastructure work.
+- Escalate to high or extra-high only for planning/decomposition, architecture decisions, security-sensitive design, or hard cross-cutting failures.
+- Use Claude Code Sonnet with medium effort for most UI/design implementation issues.
+- Escalate Claude Code to Opus/high effort only for major visual system decisions or ambiguous UX tradeoffs.
+
+The planner should pay the thinking cost up front. Worker issues should be detailed enough that lower/medium reasoning agents can execute without re-deriving the whole plan.
+
 ## Handoff Contract
 
 Every agent handoff should include:

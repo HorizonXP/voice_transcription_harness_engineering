@@ -1,6 +1,6 @@
-# Select native Windows app stack and repository structure
+# Build machine-readable CI failure summarizer
 
-> Harness ID: `VT-001`
+> Harness ID: `VT-024`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,60 +9,60 @@
 
 ## Outcome
 
-Document and scaffold the chosen Windows App SDK/WinUI 3 solution structure without implementing app features.
+Create the CI summary artifact generator that agents read before full logs.
 
 ## Work Metadata
 
 | Field | Value |
 | --- | --- |
-| Milestone | M1 Native Windows App Foundation |
-| Phase | `phase:1` |
-| Parallel Group | `foundation` |
+| Milestone | M4 Polish And Release Readiness |
+| Phase | `phase:4` |
+| Parallel Group | `ci-foundation` |
 | Recommended Agent | `agent:codex` |
 | Recommended Model | GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty |
 | Reasoning Effort | `medium` |
 | Agent Command | `codex` |
-| Dependencies | `None` |
-| Labels | `type:foundation`, `area:windows-app`, `agent:codex`, `phase:1`, `priority:p0`, `ci:required`, `review:cross-agent` |
+| Dependencies | `VT-014` |
+| Labels | `type:testing`, `area:ci`, `agent:codex`, `phase:4`, `priority:p0`, `ci:required`, `review:cross-agent` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_001[VT-001]
-    Start([Ready]) --> VT_001
+    VT_024[VT-024]
+    VT_014[VT-014] --> VT_024
 ```
 
 ## Scope
 
-- [ ] Create the initial native Windows solution/project structure.
-- [ ] Document Windows-side prerequisites required from WSL2.
-- [ ] Keep the app target Windows 11 only.
+- [ ] Emit artifacts/ci-summary.json for failed checks.
+- [ ] Include failed check name, summary, likely files, suggested owner, and next command.
+- [ ] Keep summaries concise and deterministic.
 
 ## Prescribed Implementation Plan
 
 - [ ] Read docs/requirements.md and relevant ADRs before editing.
 - [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Create the initial native Windows solution/project structure.
-- [ ] Implement: Document Windows-side prerequisites required from WSL2.
-- [ ] Implement: Keep the app target Windows 11 only.
-- [ ] Verify: Repository contains a native Windows app skeleton plan or scaffold aligned with Windows App SDK and WinUI 3.
-- [ ] Verify: Build prerequisites are documented for Windows 11.
-- [ ] Verify: No Electron or browser-wrapper app shell is introduced.
+- [ ] Implement: Emit artifacts/ci-summary.json for failed checks.
+- [ ] Implement: Include failed check name, summary, likely files, suggested owner, and next command.
+- [ ] Implement: Keep summaries concise and deterministic.
+- [ ] Verify: CI uploads ci-summary.json on every run.
+- [ ] Verify: Agent repair loop docs point to the artifact first.
+- [ ] Verify: A simulated failure can produce a useful summary without noisy logs.
 - [ ] Run the issue-specific test command and record the result in the PR.
 - [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
 
 ## Expected Files Or Areas
 
-- `src/**`
-- `tests/**`
-- `docs/** when implementation choices need explanation`
+- `.github/workflows/**`
+- `scripts/**`
+- `docs/harness/ci-strategy.md`
 
 ## Acceptance Criteria
 
-- [ ] Repository contains a native Windows app skeleton plan or scaffold aligned with Windows App SDK and WinUI 3.
-- [ ] Build prerequisites are documented for Windows 11.
-- [ ] No Electron or browser-wrapper app shell is introduced.
+- [ ] CI uploads ci-summary.json on every run.
+- [ ] Agent repair loop docs point to the artifact first.
+- [ ] A simulated failure can produce a useful summary without noisy logs.
 
 ## Constraints
 
@@ -70,7 +70,7 @@ flowchart LR
 - Do not introduce paid model API calls for orchestration.
 - Preserve user changes and generated harness IDs.
 - If a decision is low-risk and reversible, use judgment and document it.
-- Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell.
+- CI logs must stay segmented and concise; add machine-readable summaries for failures.
 
 <details>
 <summary>Failure modes and escalation rules</summary>
@@ -78,6 +78,7 @@ flowchart LR
 - Acceptance criteria are ambiguous after reading the requirements.
 - Required local or Windows-side tool is missing.
 - Implementation requires a product/security/architecture decision not already recorded.
+- CI produces noisy logs or lacks a machine-readable failure artifact.
 
 If one of these occurs, stop and report:
 
@@ -91,13 +92,12 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Codex implementation review for architecture and build viability.
-- [ ] Claude review for native app UX implications.
+- [ ] Codex reviews failure parsing and artifact shape.
+- [ ] Claude reviews human readability of summaries.
 
 ## CI Expectations
 
-- [ ] Harness validation passes.
-- [ ] Future Windows build command is documented even if not yet runnable from WSL2.
+- [ ] Harness CI validates the summary shape.
 
 ## Notes
 
@@ -105,15 +105,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-001-select-native-windows-app-stack-and-repository-structure` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-024-build-machine-readable-ci-failure-summarizer` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-001: Select native Windows app stack and repository structure.
+You are working on VT-024: Build machine-readable CI failure summarizer.
 
 Recommended model/effort: GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty / medium.
-Primary objective: Document and scaffold the chosen Windows App SDK/WinUI 3 solution structure without implementing app features.
+Primary objective: Create the CI summary artifact generator that agents read before full logs.
 
 Read:
 - docs/requirements.md

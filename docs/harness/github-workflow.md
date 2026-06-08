@@ -4,6 +4,8 @@
 
 Issues are the unit of assignable work. Each generated issue should be small enough for one agent to complete in a focused branch and pull request.
 
+Generated issues should assume the coding worker is not doing the planning from scratch. The issue should carry enough detail that a low or medium reasoning worker can execute the task without inventing architecture, product behavior, or review policy.
+
 Issue bodies should include:
 
 - Stable harness metadata.
@@ -14,9 +16,30 @@ Issue bodies should include:
 - Dependencies.
 - Parallelization group.
 - Recommended agent role.
+- Recommended model and reasoning effort.
+- Prescribed implementation steps.
+- Expected files or areas.
+- Constraints and non-goals.
+- Failure modes and escalation rules.
+- A copyable worker prompt.
 - Review plan.
 - CI expectations.
 - Human notes when relevant.
+
+Use GitHub-supported formatting aggressively when it improves comprehension:
+
+- Alerts for critical instructions.
+- Tables for metadata.
+- Tasklists for executable work.
+- Mermaid diagrams for dependencies.
+- Fenced code blocks for worker prompts and expected output.
+- Collapsed `<details>` blocks for failure modes and long review details.
+- Autolinked issue/PR references once GitHub issues exist.
+
+References:
+
+- GitHub basic Markdown syntax: https://docs.github.com/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+- GitHub advanced formatting: https://docs.github.com/get-started/writing-on-github/working-with-advanced-formatting
 
 ## Pull Requests
 

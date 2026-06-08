@@ -1,6 +1,6 @@
-# Add Windows packaging and startup foundation
+# Create first-run diagnostics and logging policy
 
-> Harness ID: `VT-002`
+> Harness ID: `VT-027`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,46 +9,48 @@
 
 ## Outcome
 
-Establish MSIX-first packaging and startup integration direction.
+Define and implement diagnostics that help fix failures without logging sensitive content.
 
 ## Work Metadata
 
 | Field | Value |
 | --- | --- |
-| Milestone | M1 Native Windows App Foundation |
-| Phase | `phase:1` |
-| Parallel Group | `foundation` |
+| Milestone | M4 Polish And Release Readiness |
+| Phase | `phase:4` |
+| Parallel Group | `diagnostics` |
 | Recommended Agent | `agent:codex` |
-| Recommended Model | GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty |
-| Reasoning Effort | `medium` |
+| Recommended Model | GPT-5.5 via local Codex CLI, low-to-medium reasoning |
+| Reasoning Effort | `low` |
 | Agent Command | `codex` |
-| Dependencies | `VT-001` |
-| Labels | `type:foundation`, `area:windows-app`, `agent:codex`, `phase:1`, `priority:p0`, `ci:required`, `review:cross-agent` |
+| Dependencies | `VT-003`, `VT-010`, `VT-014` |
+| Labels | `type:implementation`, `area:windows-app`, `agent:codex`, `phase:4`, `priority:p2`, `ci:required`, `review:cross-agent` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_002[VT-002]
-    VT_001[VT-001] --> VT_002
+    VT_027[VT-027]
+    VT_003[VT-003] --> VT_027
+    VT_010[VT-010] --> VT_027
+    VT_014[VT-014] --> VT_027
 ```
 
 ## Scope
 
-- [ ] Add packaging project or documented packaging scaffold.
-- [ ] Define startup toggle integration for the selected packaging model.
-- [ ] Document signing and local developer constraints.
+- [ ] Log provider name, operation state, duration, and normalized error codes.
+- [ ] Do not log credentials, raw audio, or full transcripts by default.
+- [ ] Expose enough diagnostics for CI and user support.
 
 ## Prescribed Implementation Plan
 
 - [ ] Read docs/requirements.md and relevant ADRs before editing.
 - [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Add packaging project or documented packaging scaffold.
-- [ ] Implement: Define startup toggle integration for the selected packaging model.
-- [ ] Implement: Document signing and local developer constraints.
-- [ ] Verify: Packaging is included from the start or a documented Windows App SDK blocker is recorded.
-- [ ] Verify: Startup toggle path is documented and testable.
-- [ ] Verify: CI strategy includes packaging validation expectations.
+- [ ] Implement: Log provider name, operation state, duration, and normalized error codes.
+- [ ] Implement: Do not log credentials, raw audio, or full transcripts by default.
+- [ ] Implement: Expose enough diagnostics for CI and user support.
+- [ ] Verify: Diagnostics help identify microphone, credential, network, provider, insertion, and history failures.
+- [ ] Verify: Sensitive content is excluded by default.
+- [ ] Verify: Logs are structured enough for agent consumption.
 - [ ] Run the issue-specific test command and record the result in the PR.
 - [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
 
@@ -60,9 +62,9 @@ flowchart LR
 
 ## Acceptance Criteria
 
-- [ ] Packaging is included from the start or a documented Windows App SDK blocker is recorded.
-- [ ] Startup toggle path is documented and testable.
-- [ ] CI strategy includes packaging validation expectations.
+- [ ] Diagnostics help identify microphone, credential, network, provider, insertion, and history failures.
+- [ ] Sensitive content is excluded by default.
+- [ ] Logs are structured enough for agent consumption.
 
 ## Constraints
 
@@ -91,12 +93,12 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Codex reviews Windows packaging correctness.
-- [ ] Claude reviews settings/startup UX clarity.
+- [ ] Codex reviews security and observability.
+- [ ] Claude reviews user-facing diagnostics copy.
 
 ## CI Expectations
 
-- [ ] Packaging-related scripts or docs pass harness validation.
+- [ ] Tests or manual checks verify sensitive values are not logged.
 
 ## Notes
 
@@ -104,15 +106,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-002-add-windows-packaging-and-startup-foundation` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-027-create-first-run-diagnostics-and-logging-policy` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-002: Add Windows packaging and startup foundation.
+You are working on VT-027: Create first-run diagnostics and logging policy.
 
-Recommended model/effort: GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty / medium.
-Primary objective: Establish MSIX-first packaging and startup integration direction.
+Recommended model/effort: GPT-5.5 via local Codex CLI, low-to-medium reasoning / low.
+Primary objective: Define and implement diagnostics that help fix failures without logging sensitive content.
 
 Read:
 - docs/requirements.md

@@ -1,6 +1,6 @@
-# Design settings UI for provider, hotkey, startup, and history controls
+# Implement provider selection settings panel
 
-> Harness ID: `VT-004`
+> Harness ID: `VT-018`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,51 +9,51 @@
 
 ## Outcome
 
-Create a native Windows 11 settings experience design for provider selection and core preferences.
+Implement the settings panel that shows saved provider credentials and exactly one active provider.
 
 ## Work Metadata
 
 | Field | Value |
 | --- | --- |
-| Milestone | M1 Native Windows App Foundation |
-| Phase | `phase:1` |
-| Parallel Group | `foundation-parallel` |
+| Milestone | M3 Provider Integrations |
+| Phase | `phase:3` |
+| Parallel Group | `provider-settings` |
 | Recommended Agent | `agent:claude` |
 | Recommended Model | Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs |
 | Reasoning Effort | `medium` |
 | Agent Command | `claude` |
-| Dependencies | `VT-001`, `VT-003` |
-| Labels | `type:implementation`, `area:ui`, `agent:claude`, `phase:1`, `priority:p1`, `ci:required`, `review:cross-agent` |
+| Dependencies | `VT-004`, `VT-010`, `VT-011`, `VT-012` |
+| Labels | `type:implementation`, `area:ui`, `area:provider`, `agent:claude`, `phase:3`, `priority:p1`, `ci:required`, `review:cross-agent` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_004[VT-004]
-    VT_001[VT-001] --> VT_004
-    VT_003[VT-003] --> VT_004
+    VT_018[VT-018]
+    VT_004[VT-004] --> VT_018
+    VT_010[VT-010] --> VT_018
+    VT_011[VT-011] --> VT_018
+    VT_012[VT-012] --> VT_018
 ```
 
 ## Scope
 
-- [ ] Provider selection with exactly one active provider.
-- [ ] API key entry affordance per provider.
-- [ ] Global hotkey configuration and conflict feedback.
-- [ ] Startup toggle.
-- [ ] Transcript retention and clear-history controls.
+- [ ] Show OpenAI and Mistral AI provider rows/cards without nesting cards inside cards.
+- [ ] Make saved credential state distinct from active provider state.
+- [ ] Allow changing the single active provider.
+- [ ] Show clear validation/error state when selected provider lacks credentials.
 
 ## Prescribed Implementation Plan
 
 - [ ] Read docs/requirements.md and relevant ADRs before editing.
 - [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Provider selection with exactly one active provider.
-- [ ] Implement: API key entry affordance per provider.
-- [ ] Implement: Global hotkey configuration and conflict feedback.
-- [ ] Implement: Startup toggle.
-- [ ] Implement: Transcript retention and clear-history controls.
-- [ ] Verify: Settings surface follows Windows 11 design guidance.
-- [ ] Verify: Provider credentials and active provider state are visually distinct.
-- [ ] Verify: History retention defaults to 30 days and supports manual clearing.
+- [ ] Implement: Show OpenAI and Mistral AI provider rows/cards without nesting cards inside cards.
+- [ ] Implement: Make saved credential state distinct from active provider state.
+- [ ] Implement: Allow changing the single active provider.
+- [ ] Implement: Show clear validation/error state when selected provider lacks credentials.
+- [ ] Verify: Exactly one provider can be active at a time.
+- [ ] Verify: Saved API keys for inactive providers do not switch the active provider automatically.
+- [ ] Verify: User can tell what will be used for the next transcription.
 - [ ] Run the issue-specific test command and record the result in the PR.
 - [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
 
@@ -65,9 +65,9 @@ flowchart LR
 
 ## Acceptance Criteria
 
-- [ ] Settings surface follows Windows 11 design guidance.
-- [ ] Provider credentials and active provider state are visually distinct.
-- [ ] History retention defaults to 30 days and supports manual clearing.
+- [ ] Exactly one provider can be active at a time.
+- [ ] Saved API keys for inactive providers do not switch the active provider automatically.
+- [ ] User can tell what will be used for the next transcription.
 
 ## Constraints
 
@@ -75,6 +75,8 @@ flowchart LR
 - Do not introduce paid model API calls for orchestration.
 - Preserve user changes and generated harness IDs.
 - If a decision is low-risk and reversible, use judgment and document it.
+- Do not bind UI workflow directly to one provider API shape.
+- Do not log credentials, raw audio, or full transcripts by default.
 - Follow native Windows 11/Fluent patterns; avoid marketing-page composition.
 - Text and controls must fit at common Windows desktop scaling settings.
 
@@ -84,6 +86,7 @@ flowchart LR
 - Acceptance criteria are ambiguous after reading the requirements.
 - Required local or Windows-side tool is missing.
 - Implementation requires a product/security/architecture decision not already recorded.
+- Provider docs or model names conflict with the recorded requirements; verify official docs before coding.
 - Visual behavior cannot be verified without a running Windows UI; attach a manual verification checklist.
 
 If one of these occurs, stop and report:
@@ -98,12 +101,12 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Claude primary design review.
-- [ ] Codex reviews implementation feasibility and settings/state boundaries.
+- [ ] Claude reviews UX clarity.
+- [ ] Codex reviews state wiring and provider contract fit.
 
 ## CI Expectations
 
-- [ ] UI snapshot or design artifact is attached once the app UI exists.
+- [ ] UI/state tests or manual smoke checklist cover provider switching.
 
 ## Notes
 
@@ -111,15 +114,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-004-design-settings-ui-for-provider-hotkey-startup-and-history-c` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-018-implement-provider-selection-settings-panel` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-004: Design settings UI for provider, hotkey, startup, and history controls.
+You are working on VT-018: Implement provider selection settings panel.
 
 Recommended model/effort: Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs / medium.
-Primary objective: Create a native Windows 11 settings experience design for provider selection and core preferences.
+Primary objective: Implement the settings panel that shows saved provider credentials and exactly one active provider.
 
 Read:
 - docs/requirements.md

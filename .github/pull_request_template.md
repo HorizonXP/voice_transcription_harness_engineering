@@ -6,12 +6,22 @@
 
 Closes #
 
+## Execution Profile
+
+| Field | Value |
+| --- | --- |
+| Harness ID |  |
+| Implementing Agent |  |
+| Model / Effort |  |
+| Cross-Reviewer |  |
+
 ## Acceptance Criteria
 
 - [ ] Issue acceptance criteria are satisfied.
 - [ ] Scope stayed within the linked issue.
 - [ ] Human-readable behavior is documented where needed.
 - [ ] Agent-readable artifacts are updated where needed.
+- [ ] Issue-prescribed constraints and failure modes were checked.
 
 ## Tests And Checks
 
@@ -24,6 +34,15 @@ Closes #
 - [ ] Greptile review completed or pending.
 - [ ] Greptile findings fixed, replied to with fix commit, and resolved where possible.
 - [ ] Cross-agent review completed or explicitly not required.
+
+<details>
+<summary>Greptile finding responses</summary>
+
+| Finding | Fix Commit | Response |
+| --- | --- | --- |
+|  |  |  |
+
+</details>
 
 ## Risk
 

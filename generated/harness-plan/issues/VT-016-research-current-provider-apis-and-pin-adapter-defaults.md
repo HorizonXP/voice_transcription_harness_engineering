@@ -1,6 +1,6 @@
-# Implement OpenAI transcription provider
+# Research current provider APIs and pin adapter defaults
 
-> Harness ID: `VT-011`
+> Harness ID: `VT-016`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,7 +9,7 @@
 
 ## Outcome
 
-Integrate OpenAI transcription through the provider abstraction.
+Verify current OpenAI and Mistral transcription docs immediately before provider implementation and record adapter defaults.
 
 ## Work Metadata
 
@@ -17,56 +17,46 @@ Integrate OpenAI transcription through the provider abstraction.
 | --- | --- |
 | Milestone | M3 Provider Integrations |
 | Phase | `phase:3` |
-| Parallel Group | `providers-parallel` |
+| Parallel Group | `providers-research` |
 | Recommended Agent | `agent:codex` |
 | Recommended Model | GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty |
 | Reasoning Effort | `medium` |
 | Agent Command | `codex` |
-| Dependencies | `VT-003`, `VT-006`, `VT-010` |
-| Labels | `type:implementation`, `area:provider`, `agent:codex`, `phase:3`, `priority:p0`, `ci:required`, `review:cross-agent` |
+| Dependencies | `VT-003` |
+| Labels | `type:research`, `area:provider`, `agent:codex`, `phase:3`, `priority:p0`, `ci:required`, `review:cross-agent` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_011[VT-011]
-    VT_003[VT-003] --> VT_011
-    VT_006[VT-006] --> VT_011
-    VT_010[VT-010] --> VT_011
+    VT_016[VT-016]
+    VT_003[VT-003] --> VT_016
 ```
 
 ## Scope
 
-- [ ] Use the latest best OpenAI transcription direction from official docs.
-- [ ] Support configured API key retrieval.
-- [ ] Normalize provider errors.
-- [ ] Support cancellation where possible.
+- [ ] Check official OpenAI transcription and realtime transcription docs.
+- [ ] Check official Mistral audio transcription docs.
+- [ ] Record selected endpoint, model alias, audio format, and streaming support for each provider.
+- [ ] Add source links and date checked to provider documentation.
 
 ## Prescribed Implementation Plan
 
-- [ ] Read docs/requirements.md and relevant ADRs before editing.
-- [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Use the latest best OpenAI transcription direction from official docs.
-- [ ] Implement: Support configured API key retrieval.
-- [ ] Implement: Normalize provider errors.
-- [ ] Implement: Support cancellation where possible.
-- [ ] Verify: OpenAI provider implements the common provider contract.
-- [ ] Verify: Provider can be selected as the active provider.
-- [ ] Verify: Network and credential failures are user-visible and not logged with secrets.
-- [ ] Run the issue-specific test command and record the result in the PR.
-- [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
+- [ ] Use official provider docs only; do not rely on memory for model names or endpoints.
+- [ ] Create provider research notes with endpoint, model, audio format, auth, streaming, cancellation, and known errors.
+- [ ] Update generated issue notes or provider docs if the requirements need a non-product correction.
+- [ ] Run harness validation.
 
 ## Expected Files Or Areas
 
-- `src/** provider files`
-- `tests/** provider tests`
-- `docs/** provider notes when needed`
+- `docs/providers/**`
+- `docs/harness/** if workflow guidance changes`
 
 ## Acceptance Criteria
 
-- [ ] OpenAI provider implements the common provider contract.
-- [ ] Provider can be selected as the active provider.
-- [ ] Network and credential failures are user-visible and not logged with secrets.
+- [ ] Provider implementation tickets have current model/API facts available.
+- [ ] No provider adapter relies on stale remembered API details.
+- [ ] Docs explain whether each provider supports batch, streaming, cancellation, and error normalization.
 
 ## Constraints
 
@@ -97,12 +87,13 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Codex reviews API integration and error normalization.
-- [ ] Claude reviews user-facing provider error messages.
+- [ ] Codex reviews source accuracy and API implications.
+- [ ] Claude reviews user-facing provider wording implications.
 
 ## CI Expectations
 
-- [ ] Provider contract tests or mocked integration tests exist.
+- [ ] Harness validation passes.
+- [ ] Provider documentation includes official source links.
 
 ## Notes
 
@@ -110,15 +101,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-011-implement-openai-transcription-provider` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-016-research-current-provider-apis-and-pin-adapter-defaults` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-011: Implement OpenAI transcription provider.
+You are working on VT-016: Research current provider APIs and pin adapter defaults.
 
 Recommended model/effort: GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty / medium.
-Primary objective: Integrate OpenAI transcription through the provider abstraction.
+Primary objective: Verify current OpenAI and Mistral transcription docs immediately before provider implementation and record adapter defaults.
 
 Read:
 - docs/requirements.md

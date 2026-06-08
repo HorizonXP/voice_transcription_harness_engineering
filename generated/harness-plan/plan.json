@@ -4,6 +4,11 @@
     "requirements_path": "docs/requirements.md",
     "generated_at": "deterministic-dry-run"
   },
+  "planner": {
+    "mode": "deterministic_sample",
+    "intended_production_planner": "GPT-5.5 extra-high reasoning via local Codex CLI/subscription",
+    "note": "This sample plan is a regression fixture and demo output. Production decomposition should be performed by a high-reasoning planner, then validated and rendered by this harness."
+  },
   "project": {
     "title": "Voice Transcription Harness Execution",
     "description": "Dependency-aware execution plan for building the native Windows 11 voice transcription app through coordinated agents.",
@@ -208,7 +213,42 @@
         "Harness validation passes.",
         "Future Windows build command is documented even if not yet runnable from WSL2."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/**",
+          "tests/**",
+          "docs/** when implementation choices need explanation"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Create the initial native Windows solution/project structure.",
+          "Implement: Document Windows-side prerequisites required from WSL2.",
+          "Implement: Keep the app target Windows 11 only.",
+          "Verify: Repository contains a native Windows app skeleton plan or scaffold aligned with Windows App SDK and WinUI 3.",
+          "Verify: Build prerequisites are documented for Windows 11.",
+          "Verify: No Electron or browser-wrapper app shell is introduced.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded."
+        ]
+      }
     },
     {
       "id": "VT-002",
@@ -247,7 +287,42 @@
       "ci_expectations": [
         "Packaging-related scripts or docs pass harness validation."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/**",
+          "tests/**",
+          "docs/** when implementation choices need explanation"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Add packaging project or documented packaging scaffold.",
+          "Implement: Define startup toggle integration for the selected packaging model.",
+          "Implement: Document signing and local developer constraints.",
+          "Verify: Packaging is included from the start or a documented Windows App SDK blocker is recorded.",
+          "Verify: Startup toggle path is documented and testable.",
+          "Verify: CI strategy includes packaging validation expectations.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded."
+        ]
+      }
     },
     {
       "id": "VT-003",
@@ -287,7 +362,45 @@
       "ci_expectations": [
         "Unit test strategy for contracts is documented or implemented."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** provider files",
+          "tests/** provider tests",
+          "docs/** provider notes when needed"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Define provider abstraction interfaces.",
+          "Implement: Define insertion adapter boundary.",
+          "Implement: Define transcript history data contract.",
+          "Implement: Define secure credential storage boundary.",
+          "Verify: OpenAI, Mistral AI, and future local providers fit the same provider contract.",
+          "Verify: Insertion can be replaced later without rewriting providers or recorder logic.",
+          "Verify: Contracts are covered by unit tests or compile-time checks once app code exists.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Do not bind UI workflow directly to one provider API shape.",
+          "Do not log credentials, raw audio, or full transcripts by default."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Provider docs or model names conflict with the recorded requirements; verify official docs before coding."
+        ]
+      }
     },
     {
       "id": "VT-004",
@@ -329,7 +442,46 @@
       "ci_expectations": [
         "UI snapshot or design artifact is attached once the app UI exists."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs",
+        "reasoning_effort": "medium",
+        "agent_command": "claude",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** UI files",
+          "docs/**/*.md for UI verification notes",
+          "tests/** UI smoke artifacts when available"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Provider selection with exactly one active provider.",
+          "Implement: API key entry affordance per provider.",
+          "Implement: Global hotkey configuration and conflict feedback.",
+          "Implement: Startup toggle.",
+          "Implement: Transcript retention and clear-history controls.",
+          "Verify: Settings surface follows Windows 11 design guidance.",
+          "Verify: Provider credentials and active provider state are visually distinct.",
+          "Verify: History retention defaults to 30 days and supports manual clearing.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Follow native Windows 11/Fluent patterns; avoid marketing-page composition.",
+          "Text and controls must fit at common Windows desktop scaling settings."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Visual behavior cannot be verified without a running Windows UI; attach a manual verification checklist."
+        ]
+      }
     },
     {
       "id": "VT-005",
@@ -369,7 +521,42 @@
       "ci_expectations": [
         "Unit or integration tests cover hotkey state transitions where possible."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, low-to-medium reasoning",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/**",
+          "tests/**",
+          "docs/** when implementation choices need explanation"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Default hotkey is Ctrl+Win+H.",
+          "Implement: Press starts recording and release stops recording.",
+          "Implement: Settings validation rejects detectable conflicts.",
+          "Verify: Hotkey lifecycle is testable.",
+          "Verify: Conflict detection failure is shown to the user.",
+          "Verify: The app does not accept a detected conflicting hotkey.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded."
+        ]
+      }
     },
     {
       "id": "VT-006",
@@ -409,11 +596,46 @@
       "ci_expectations": [
         "Recorder tests or documented manual smoke test exists."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, low-to-medium reasoning",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/**",
+          "tests/**",
+          "docs/** when implementation choices need explanation"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Start/stop recording follows hotkey state.",
+          "Implement: Missing microphone permission or device failure produces clear errors.",
+          "Implement: Audio is not retained by default after transcription completes.",
+          "Verify: Recorder exposes audio data in the provider-required format or through a conversion path.",
+          "Verify: Cancellation and failure are handled.",
+          "Verify: Audio level information is available for the HUD where feasible.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded."
+        ]
+      }
     },
     {
       "id": "VT-007",
-      "title": "Design and implement recording HUD",
+      "title": "Create recording HUD visual design specification",
       "milestone": "M2 Recording And Insertion Workflow",
       "phase": "phase:2",
       "parallel_group": "recording-parallel",
@@ -431,16 +653,16 @@
         "VT-001",
         "VT-003"
       ],
-      "outcome": "Create the compact Windows 11 HUD for recording, transcribing, error, and completed states.",
+      "outcome": "Create the visual and interaction specification for the compact Windows 11 HUD before implementation.",
       "scope": [
-        "HUD is horizontally centered near the lower screen area and inset above the bottom edge.",
-        "HUD shows recording state, audio activity, and transcription progress.",
-        "HUD dismisses automatically after insertion completes."
+        "Specify HUD layout, placement, sizing, visual hierarchy, and state variants.",
+        "Specify how audio activity and transcription progress appear without layout shift.",
+        "Specify focus and dismissal behavior without implementing the state machine."
       ],
       "acceptance_criteria": [
-        "HUD does not steal focus unnecessarily.",
-        "All required states are represented.",
-        "Text and controls fit across expected desktop scaling conditions."
+        "Design spec covers recording, transcribing, fallback, error, and completed states.",
+        "Spec follows native Windows 11 visual guidance.",
+        "Spec is detailed enough for VT-021 to implement without re-designing the HUD."
       ],
       "review_plan": [
         "Claude reviews visual and interaction quality.",
@@ -449,7 +671,44 @@
       "ci_expectations": [
         "UI smoke test or manual verification checklist exists."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs",
+        "reasoning_effort": "medium",
+        "agent_command": "claude",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** UI files",
+          "docs/**/*.md for UI verification notes",
+          "tests/** UI smoke artifacts when available"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Specify HUD layout, placement, sizing, visual hierarchy, and state variants.",
+          "Implement: Specify how audio activity and transcription progress appear without layout shift.",
+          "Implement: Specify focus and dismissal behavior without implementing the state machine.",
+          "Verify: Design spec covers recording, transcribing, fallback, error, and completed states.",
+          "Verify: Spec follows native Windows 11 visual guidance.",
+          "Verify: Spec is detailed enough for VT-021 to implement without re-designing the HUD.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Follow native Windows 11/Fluent patterns; avoid marketing-page composition.",
+          "Text and controls must fit at common Windows desktop scaling settings."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Visual behavior cannot be verified without a running Windows UI; attach a manual verification checklist."
+        ]
+      }
     },
     {
       "id": "VT-008",
@@ -489,11 +748,122 @@
       "ci_expectations": [
         "Tests cover insertion success and fallback paths where feasible."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, low-to-medium reasoning",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/**",
+          "tests/**",
+          "docs/** when implementation choices need explanation"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Active text insertion is the default delivery path.",
+          "Implement: Clipboard fallback runs when insertion fails.",
+          "Implement: Fallback is visible to the user and history retains the transcript.",
+          "Verify: Insertion adapter has a clear success/failure contract.",
+          "Verify: Clipboard fallback is tested or manually smoke-tested.",
+          "Verify: Failure does not drop transcript text.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded."
+        ]
+      }
+    },
+    {
+      "id": "VT-022",
+      "title": "Implement transcript history storage and retention engine",
+      "milestone": "M2 Recording And Insertion Workflow",
+      "phase": "phase:2",
+      "parallel_group": "history-engine",
+      "agent": "codex",
+      "labels": [
+        "type:implementation",
+        "area:windows-app",
+        "agent:codex",
+        "phase:2",
+        "priority:p1",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-003"
+      ],
+      "outcome": "Implement full-text transcript history storage with 30-day retention and manual clearing, independent of UI polish.",
+      "scope": [
+        "Persist full transcript text and metadata.",
+        "Apply default 30-day retention.",
+        "Expose clear-history operation.",
+        "Keep raw audio out of history by default."
+      ],
+      "acceptance_criteria": [
+        "Retention engine can delete expired history entries.",
+        "Manual clearing removes full transcript text.",
+        "History writes do not log full transcript text by default."
+      ],
+      "review_plan": [
+        "Codex reviews privacy and persistence behavior.",
+        "Claude reviews history state needed by UI."
+      ],
+      "ci_expectations": [
+        "Unit tests cover save, query, retention cleanup, and clear-history behavior."
+      ],
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, low-to-medium reasoning",
+        "reasoning_effort": "low",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/**",
+          "tests/**",
+          "docs/** when implementation choices need explanation"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Persist full transcript text and metadata.",
+          "Implement: Apply default 30-day retention.",
+          "Implement: Expose clear-history operation.",
+          "Implement: Keep raw audio out of history by default.",
+          "Verify: Retention engine can delete expired history entries.",
+          "Verify: Manual clearing removes full transcript text.",
+          "Verify: History writes do not log full transcript text by default.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded."
+        ]
+      }
     },
     {
       "id": "VT-009",
-      "title": "Implement persistent transcript history",
+      "title": "Wire transcript history into completed transcription workflow",
       "milestone": "M2 Recording And Insertion Workflow",
       "phase": "phase:2",
       "parallel_group": "history",
@@ -509,28 +879,65 @@
       ],
       "dependencies": [
         "VT-003",
-        "VT-008"
+        "VT-008",
+        "VT-022"
       ],
-      "outcome": "Persist full transcript text by default with retention and clear-history controls.",
+      "outcome": "Ensure completed and fallback transcripts are written to history through the storage engine.",
       "scope": [
-        "Store full transcript text by default.",
-        "Default retention is 30 days.",
-        "Support manual clearing.",
-        "Do not log full transcripts by default."
+        "Write successful active-insertion transcripts to history.",
+        "Write clipboard-fallback transcripts to history.",
+        "Include provider, duration, timestamp, and delivery outcome metadata.",
+        "Do not duplicate entries on retry or UI refresh."
       ],
       "acceptance_criteria": [
-        "History storage is bounded by retention settings.",
-        "Clear-history action removes stored transcript text.",
-        "History entries include provider and timing metadata."
+        "Every completed transcript path records exactly one history entry.",
+        "Fallback path preserves transcript text even when insertion fails.",
+        "History writes use the VT-022 storage engine instead of ad hoc persistence."
       ],
       "review_plan": [
-        "Codex reviews privacy and storage behavior.",
-        "Claude reviews history UI affordances."
+        "Codex reviews workflow and persistence integration.",
+        "Claude reviews user-visible fallback/history behavior."
       ],
       "ci_expectations": [
-        "History retention logic has unit coverage."
+        "Workflow tests cover active insertion and clipboard fallback history writes."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, low-to-medium reasoning",
+        "reasoning_effort": "low",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/**",
+          "tests/**",
+          "docs/** when implementation choices need explanation"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Write successful active-insertion transcripts to history.",
+          "Implement: Write clipboard-fallback transcripts to history.",
+          "Implement: Include provider, duration, timestamp, and delivery outcome metadata.",
+          "Implement: Do not duplicate entries on retry or UI refresh.",
+          "Verify: Every completed transcript path records exactly one history entry.",
+          "Verify: Fallback path preserves transcript text even when insertion fails.",
+          "Verify: History writes use the VT-022 storage engine instead of ad hoc persistence.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded."
+        ]
+      }
     },
     {
       "id": "VT-010",
@@ -570,7 +977,44 @@
       "ci_expectations": [
         "Credential storage behavior has tests or documented manual verification."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** provider files",
+          "tests/** provider tests",
+          "docs/** provider notes when needed"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: API keys are entered through settings.",
+          "Implement: Keys are not stored in plain-text app configuration.",
+          "Implement: Credential failures are surfaced clearly.",
+          "Verify: Credential storage uses Windows Credential Manager or equivalent Windows-native secure storage.",
+          "Verify: Provider adapters can retrieve keys without exposing them in logs.",
+          "Verify: Deleting a provider credential is supported.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Do not bind UI workflow directly to one provider API shape.",
+          "Do not log credentials, raw audio, or full transcripts by default."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Provider docs or model names conflict with the recorded requirements; verify official docs before coding."
+        ]
+      }
     },
     {
       "id": "VT-011",
@@ -612,7 +1056,45 @@
       "ci_expectations": [
         "Provider contract tests or mocked integration tests exist."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** provider files",
+          "tests/** provider tests",
+          "docs/** provider notes when needed"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Use the latest best OpenAI transcription direction from official docs.",
+          "Implement: Support configured API key retrieval.",
+          "Implement: Normalize provider errors.",
+          "Implement: Support cancellation where possible.",
+          "Verify: OpenAI provider implements the common provider contract.",
+          "Verify: Provider can be selected as the active provider.",
+          "Verify: Network and credential failures are user-visible and not logged with secrets.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Do not bind UI workflow directly to one provider API shape.",
+          "Do not log credentials, raw audio, or full transcripts by default."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Provider docs or model names conflict with the recorded requirements; verify official docs before coding."
+        ]
+      }
     },
     {
       "id": "VT-012",
@@ -654,7 +1136,45 @@
       "ci_expectations": [
         "Provider contract tests or mocked integration tests exist."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty",
+        "reasoning_effort": "low",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** provider files",
+          "tests/** provider tests",
+          "docs/** provider notes when needed"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Use the latest best Mistral transcription direction from official docs.",
+          "Implement: Support configured API key retrieval.",
+          "Implement: Normalize provider errors.",
+          "Implement: Support cancellation where possible.",
+          "Verify: Mistral provider implements the common provider contract.",
+          "Verify: Provider can be selected as the active provider.",
+          "Verify: Network and credential failures are user-visible and not logged with secrets.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Do not bind UI workflow directly to one provider API shape.",
+          "Do not log credentials, raw audio, or full transcripts by default."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Provider docs or model names conflict with the recorded requirements; verify official docs before coding."
+        ]
+      }
     },
     {
       "id": "VT-013",
@@ -693,7 +1213,42 @@
       "ci_expectations": [
         "Manual smoke test checklist exists for tray behavior."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, low-to-medium reasoning",
+        "reasoning_effort": "low",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/**",
+          "tests/**",
+          "docs/** when implementation choices need explanation"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Tray icon indicates app availability.",
+          "Implement: Tray menu exposes settings and exit.",
+          "Implement: Idle behavior does not interrupt foreground work.",
+          "Verify: Tray integration works with the selected app model.",
+          "Verify: Settings can be opened from tray.",
+          "Verify: Exit cleanly releases hotkey and recording resources.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded."
+        ]
+      }
     },
     {
       "id": "VT-014",
@@ -732,7 +1287,522 @@
       "ci_expectations": [
         "GitHub Actions workflow passes on the repository."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          ".github/workflows/**",
+          "scripts/**",
+          "docs/harness/ci-strategy.md"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Define unit, integration, UI smoke, and packaging validation layers.",
+          "Implement: Keep CI economical and segmented.",
+          "Implement: Emit concise machine-readable failure summaries.",
+          "Verify: CI runs harness validation and app tests appropriate to the current scaffold.",
+          "Verify: Failure artifact points to failing check, files, and likely owner.",
+          "Verify: Logs are segmented and not unnecessarily noisy.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "CI logs must stay segmented and concise; add machine-readable summaries for failures."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "CI produces noisy logs or lacks a machine-readable failure artifact."
+        ]
+      }
+    },
+    {
+      "id": "VT-018",
+      "title": "Implement provider selection settings panel",
+      "milestone": "M3 Provider Integrations",
+      "phase": "phase:3",
+      "parallel_group": "provider-settings",
+      "agent": "claude",
+      "labels": [
+        "type:implementation",
+        "area:ui",
+        "area:provider",
+        "agent:claude",
+        "phase:3",
+        "priority:p1",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-004",
+        "VT-010",
+        "VT-011",
+        "VT-012"
+      ],
+      "outcome": "Implement the settings panel that shows saved provider credentials and exactly one active provider.",
+      "scope": [
+        "Show OpenAI and Mistral AI provider rows/cards without nesting cards inside cards.",
+        "Make saved credential state distinct from active provider state.",
+        "Allow changing the single active provider.",
+        "Show clear validation/error state when selected provider lacks credentials."
+      ],
+      "acceptance_criteria": [
+        "Exactly one provider can be active at a time.",
+        "Saved API keys for inactive providers do not switch the active provider automatically.",
+        "User can tell what will be used for the next transcription."
+      ],
+      "review_plan": [
+        "Claude reviews UX clarity.",
+        "Codex reviews state wiring and provider contract fit."
+      ],
+      "ci_expectations": [
+        "UI/state tests or manual smoke checklist cover provider switching."
+      ],
+      "notes": [],
+      "execution": {
+        "model": "Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs",
+        "reasoning_effort": "medium",
+        "agent_command": "claude",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** UI files",
+          "docs/**/*.md for UI verification notes",
+          "tests/** UI smoke artifacts when available"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Show OpenAI and Mistral AI provider rows/cards without nesting cards inside cards.",
+          "Implement: Make saved credential state distinct from active provider state.",
+          "Implement: Allow changing the single active provider.",
+          "Implement: Show clear validation/error state when selected provider lacks credentials.",
+          "Verify: Exactly one provider can be active at a time.",
+          "Verify: Saved API keys for inactive providers do not switch the active provider automatically.",
+          "Verify: User can tell what will be used for the next transcription.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Do not bind UI workflow directly to one provider API shape.",
+          "Do not log credentials, raw audio, or full transcripts by default.",
+          "Follow native Windows 11/Fluent patterns; avoid marketing-page composition.",
+          "Text and controls must fit at common Windows desktop scaling settings."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Provider docs or model names conflict with the recorded requirements; verify official docs before coding.",
+          "Visual behavior cannot be verified without a running Windows UI; attach a manual verification checklist."
+        ]
+      }
+    },
+    {
+      "id": "VT-019",
+      "title": "Implement hotkey settings panel and conflict feedback",
+      "milestone": "M2 Recording And Insertion Workflow",
+      "phase": "phase:2",
+      "parallel_group": "hotkey-settings",
+      "agent": "claude",
+      "labels": [
+        "type:implementation",
+        "area:ui",
+        "area:windows-app",
+        "agent:claude",
+        "phase:2",
+        "priority:p1",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-004",
+        "VT-005"
+      ],
+      "outcome": "Create the settings UI for recording the global hotkey and displaying conflict feedback.",
+      "scope": [
+        "Default visible hotkey is Ctrl+Win+H.",
+        "Hotkey capture UI handles press/release clearly.",
+        "Conflict errors prevent saving and explain the problem.",
+        "User can cancel without changing the current hotkey."
+      ],
+      "acceptance_criteria": [
+        "Conflict state is visible and actionable.",
+        "The UI does not accept a detected conflicting hotkey.",
+        "The hotkey capture interaction is keyboard-accessible."
+      ],
+      "review_plan": [
+        "Claude reviews interaction design.",
+        "Codex reviews integration with hotkey validation service."
+      ],
+      "ci_expectations": [
+        "UI/state tests or manual smoke checklist cover valid, invalid, and cancel paths."
+      ],
+      "notes": [],
+      "execution": {
+        "model": "Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs",
+        "reasoning_effort": "medium",
+        "agent_command": "claude",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** UI files",
+          "docs/**/*.md for UI verification notes",
+          "tests/** UI smoke artifacts when available"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Default visible hotkey is Ctrl+Win+H.",
+          "Implement: Hotkey capture UI handles press/release clearly.",
+          "Implement: Conflict errors prevent saving and explain the problem.",
+          "Implement: User can cancel without changing the current hotkey.",
+          "Verify: Conflict state is visible and actionable.",
+          "Verify: The UI does not accept a detected conflicting hotkey.",
+          "Verify: The hotkey capture interaction is keyboard-accessible.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell.",
+          "Follow native Windows 11/Fluent patterns; avoid marketing-page composition.",
+          "Text and controls must fit at common Windows desktop scaling settings."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Visual behavior cannot be verified without a running Windows UI; attach a manual verification checklist."
+        ]
+      }
+    },
+    {
+      "id": "VT-020",
+      "title": "Define HUD state machine before visual implementation",
+      "milestone": "M2 Recording And Insertion Workflow",
+      "phase": "phase:2",
+      "parallel_group": "hud-design",
+      "agent": "codex",
+      "labels": [
+        "type:foundation",
+        "area:ui",
+        "area:windows-app",
+        "agent:codex",
+        "phase:2",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-003",
+        "VT-006",
+        "VT-008"
+      ],
+      "outcome": "Define the HUD state machine so visual implementation does not invent workflow behavior.",
+      "scope": [
+        "Define idle, preparing, recording, transcribing, inserting, fallback, error, and completed states.",
+        "Define transitions, cancellation behavior, and auto-dismiss triggers.",
+        "Define data each state exposes to the UI."
+      ],
+      "acceptance_criteria": [
+        "HUD implementation can follow the state machine without product guesswork.",
+        "Auto-dismiss happens only after insertion or fallback notification is complete.",
+        "Error states preserve transcript text when available."
+      ],
+      "review_plan": [
+        "Codex reviews state-machine completeness.",
+        "Claude reviews whether states support clear UI."
+      ],
+      "ci_expectations": [
+        "State-machine tests or documentation examples exist."
+      ],
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** UI files",
+          "docs/**/*.md for UI verification notes",
+          "tests/** UI smoke artifacts when available"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Define idle, preparing, recording, transcribing, inserting, fallback, error, and completed states.",
+          "Implement: Define transitions, cancellation behavior, and auto-dismiss triggers.",
+          "Implement: Define data each state exposes to the UI.",
+          "Verify: HUD implementation can follow the state machine without product guesswork.",
+          "Verify: Auto-dismiss happens only after insertion or fallback notification is complete.",
+          "Verify: Error states preserve transcript text when available.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell.",
+          "Follow native Windows 11/Fluent patterns; avoid marketing-page composition.",
+          "Text and controls must fit at common Windows desktop scaling settings."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Visual behavior cannot be verified without a running Windows UI; attach a manual verification checklist."
+        ]
+      }
+    },
+    {
+      "id": "VT-021",
+      "title": "Implement HUD visual surface from state machine",
+      "milestone": "M2 Recording And Insertion Workflow",
+      "phase": "phase:2",
+      "parallel_group": "hud-implementation",
+      "agent": "claude",
+      "labels": [
+        "type:implementation",
+        "area:ui",
+        "agent:claude",
+        "phase:2",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-007",
+        "VT-020"
+      ],
+      "outcome": "Implement the HUD visual surface using the prescribed state machine.",
+      "scope": [
+        "Render all HUD states from VT-020.",
+        "Position centered near the lower screen and inset above the bottom edge.",
+        "Show audio activity without layout shift.",
+        "Keep the foreground application focus behavior intact."
+      ],
+      "acceptance_criteria": [
+        "HUD renders every state without text overlap.",
+        "HUD does not behave like a modal dialog.",
+        "HUD is visually consistent with Windows 11 surfaces."
+      ],
+      "review_plan": [
+        "Claude reviews visual polish.",
+        "Codex reviews state binding and focus behavior."
+      ],
+      "ci_expectations": [
+        "UI smoke checklist or screenshot artifacts cover all states."
+      ],
+      "notes": [],
+      "execution": {
+        "model": "Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs",
+        "reasoning_effort": "medium",
+        "agent_command": "claude",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** UI files",
+          "docs/**/*.md for UI verification notes",
+          "tests/** UI smoke artifacts when available"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Render all HUD states from VT-020.",
+          "Implement: Position centered near the lower screen and inset above the bottom edge.",
+          "Implement: Show audio activity without layout shift.",
+          "Implement: Keep the foreground application focus behavior intact.",
+          "Verify: HUD renders every state without text overlap.",
+          "Verify: HUD does not behave like a modal dialog.",
+          "Verify: HUD is visually consistent with Windows 11 surfaces.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Follow native Windows 11/Fluent patterns; avoid marketing-page composition.",
+          "Text and controls must fit at common Windows desktop scaling settings."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Visual behavior cannot be verified without a running Windows UI; attach a manual verification checklist."
+        ]
+      }
+    },
+    {
+      "id": "VT-017",
+      "title": "Create settings shell and navigation structure",
+      "milestone": "M1 Native Windows App Foundation",
+      "phase": "phase:1",
+      "parallel_group": "settings-ui",
+      "agent": "claude",
+      "labels": [
+        "type:implementation",
+        "area:ui",
+        "agent:claude",
+        "phase:1",
+        "priority:p1",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-001"
+      ],
+      "outcome": "Create the Windows 11 settings shell structure before wiring provider-specific settings.",
+      "scope": [
+        "Define settings navigation sections.",
+        "Create shell layout for General, Providers, Hotkey, History, and About/Diagnostics.",
+        "Use native Windows 11 spacing, typography, and control hierarchy."
+      ],
+      "acceptance_criteria": [
+        "Settings shell can host later provider, hotkey, startup, and history panels.",
+        "Navigation is understandable without explanatory feature-marketing text.",
+        "Design is compact and operational, not a landing page."
+      ],
+      "review_plan": [
+        "Claude reviews visual structure.",
+        "Codex reviews whether the shell can be wired to settings state."
+      ],
+      "ci_expectations": [
+        "UI smoke checklist or screenshots are attached once UI exists."
+      ],
+      "notes": [],
+      "execution": {
+        "model": "Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs",
+        "reasoning_effort": "medium",
+        "agent_command": "claude",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** settings UI files",
+          "docs/** UI notes or screenshots"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Define settings navigation sections.",
+          "Implement: Create shell layout for General, Providers, Hotkey, History, and About/Diagnostics.",
+          "Implement: Use native Windows 11 spacing, typography, and control hierarchy.",
+          "Verify: Settings shell can host later provider, hotkey, startup, and history panels.",
+          "Verify: Navigation is understandable without explanatory feature-marketing text.",
+          "Verify: Design is compact and operational, not a landing page.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Follow native Windows 11/Fluent patterns; avoid marketing-page composition.",
+          "Text and controls must fit at common Windows desktop scaling settings."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Visual behavior cannot be verified without a running Windows UI; attach a manual verification checklist."
+        ]
+      }
+    },
+    {
+      "id": "VT-023",
+      "title": "Implement transcript history UI",
+      "milestone": "M2 Recording And Insertion Workflow",
+      "phase": "phase:2",
+      "parallel_group": "history-ui",
+      "agent": "claude",
+      "labels": [
+        "type:implementation",
+        "area:ui",
+        "agent:claude",
+        "phase:2",
+        "priority:p2",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-017",
+        "VT-022"
+      ],
+      "outcome": "Implement the transcript history view and retention controls.",
+      "scope": [
+        "Show recent transcript entries with provider and timestamp metadata.",
+        "Support manual clear-history action.",
+        "Expose retention setting with 30-day default.",
+        "Avoid showing raw audio or credentials."
+      ],
+      "acceptance_criteria": [
+        "History UI is scannable and compact.",
+        "Clear-history action is explicit and hard to trigger accidentally.",
+        "Retention control is understandable without long explanatory text."
+      ],
+      "review_plan": [
+        "Claude reviews UI clarity.",
+        "Codex reviews privacy and state integration."
+      ],
+      "ci_expectations": [
+        "UI/state tests or manual smoke checklist cover history display and clearing."
+      ],
+      "notes": [],
+      "execution": {
+        "model": "Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs",
+        "reasoning_effort": "medium",
+        "agent_command": "claude",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** UI files",
+          "docs/**/*.md for UI verification notes",
+          "tests/** UI smoke artifacts when available"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Show recent transcript entries with provider and timestamp metadata.",
+          "Implement: Support manual clear-history action.",
+          "Implement: Expose retention setting with 30-day default.",
+          "Implement: Avoid showing raw audio or credentials.",
+          "Verify: History UI is scannable and compact.",
+          "Verify: Clear-history action is explicit and hard to trigger accidentally.",
+          "Verify: Retention control is understandable without long explanatory text.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Follow native Windows 11/Fluent patterns; avoid marketing-page composition.",
+          "Text and controls must fit at common Windows desktop scaling settings."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Visual behavior cannot be verified without a running Windows UI; attach a manual verification checklist."
+        ]
+      }
     },
     {
       "id": "VT-015",
@@ -751,9 +1821,10 @@
         "review:cross-agent"
       ],
       "dependencies": [
-        "VT-004",
-        "VT-007",
-        "VT-009",
+        "VT-018",
+        "VT-019",
+        "VT-021",
+        "VT-023",
         "VT-011",
         "VT-012"
       ],
@@ -775,7 +1846,420 @@
       "ci_expectations": [
         "UI smoke artifacts or screenshots are attached where possible."
       ],
-      "notes": []
+      "notes": [],
+      "execution": {
+        "model": "Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs",
+        "reasoning_effort": "medium",
+        "agent_command": "claude",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/** UI files",
+          "docs/**/*.md for UI verification notes",
+          "tests/** UI smoke artifacts when available"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Ensure controls are compact, clear, and native-feeling.",
+          "Implement: Verify provider selection and credential states are understandable.",
+          "Implement: Verify history deletion and retention controls are easy to find.",
+          "Verify: UI fits without overlap at common desktop scaling settings.",
+          "Verify: User-facing copy is concise and actionable.",
+          "Verify: Claude and Codex reviews agree the UI is ready for release candidate testing.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Follow native Windows 11/Fluent patterns; avoid marketing-page composition.",
+          "Text and controls must fit at common Windows desktop scaling settings."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Visual behavior cannot be verified without a running Windows UI; attach a manual verification checklist."
+        ]
+      }
+    },
+    {
+      "id": "VT-016",
+      "title": "Research current provider APIs and pin adapter defaults",
+      "milestone": "M3 Provider Integrations",
+      "phase": "phase:3",
+      "parallel_group": "providers-research",
+      "agent": "codex",
+      "labels": [
+        "type:research",
+        "area:provider",
+        "agent:codex",
+        "phase:3",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-003"
+      ],
+      "outcome": "Verify current OpenAI and Mistral transcription docs immediately before provider implementation and record adapter defaults.",
+      "scope": [
+        "Check official OpenAI transcription and realtime transcription docs.",
+        "Check official Mistral audio transcription docs.",
+        "Record selected endpoint, model alias, audio format, and streaming support for each provider.",
+        "Add source links and date checked to provider documentation."
+      ],
+      "acceptance_criteria": [
+        "Provider implementation tickets have current model/API facts available.",
+        "No provider adapter relies on stale remembered API details.",
+        "Docs explain whether each provider supports batch, streaming, cancellation, and error normalization."
+      ],
+      "review_plan": [
+        "Codex reviews source accuracy and API implications.",
+        "Claude reviews user-facing provider wording implications."
+      ],
+      "ci_expectations": [
+        "Harness validation passes.",
+        "Provider documentation includes official source links."
+      ],
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "docs/providers/**",
+          "docs/harness/** if workflow guidance changes"
+        ],
+        "implementation_steps": [
+          "Use official provider docs only; do not rely on memory for model names or endpoints.",
+          "Create provider research notes with endpoint, model, audio format, auth, streaming, cancellation, and known errors.",
+          "Update generated issue notes or provider docs if the requirements need a non-product correction.",
+          "Run harness validation."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Do not bind UI workflow directly to one provider API shape.",
+          "Do not log credentials, raw audio, or full transcripts by default."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "Provider docs or model names conflict with the recorded requirements; verify official docs before coding."
+        ]
+      }
+    },
+    {
+      "id": "VT-024",
+      "title": "Build machine-readable CI failure summarizer",
+      "milestone": "M4 Polish And Release Readiness",
+      "phase": "phase:4",
+      "parallel_group": "ci-foundation",
+      "agent": "codex",
+      "labels": [
+        "type:testing",
+        "area:ci",
+        "agent:codex",
+        "phase:4",
+        "priority:p0",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-014"
+      ],
+      "outcome": "Create the CI summary artifact generator that agents read before full logs.",
+      "scope": [
+        "Emit artifacts/ci-summary.json for failed checks.",
+        "Include failed check name, summary, likely files, suggested owner, and next command.",
+        "Keep summaries concise and deterministic."
+      ],
+      "acceptance_criteria": [
+        "CI uploads ci-summary.json on every run.",
+        "Agent repair loop docs point to the artifact first.",
+        "A simulated failure can produce a useful summary without noisy logs."
+      ],
+      "review_plan": [
+        "Codex reviews failure parsing and artifact shape.",
+        "Claude reviews human readability of summaries."
+      ],
+      "ci_expectations": [
+        "Harness CI validates the summary shape."
+      ],
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          ".github/workflows/**",
+          "scripts/**",
+          "docs/harness/ci-strategy.md"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Emit artifacts/ci-summary.json for failed checks.",
+          "Implement: Include failed check name, summary, likely files, suggested owner, and next command.",
+          "Implement: Keep summaries concise and deterministic.",
+          "Verify: CI uploads ci-summary.json on every run.",
+          "Verify: Agent repair loop docs point to the artifact first.",
+          "Verify: A simulated failure can produce a useful summary without noisy logs.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "CI logs must stay segmented and concise; add machine-readable summaries for failures."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "CI produces noisy logs or lacks a machine-readable failure artifact."
+        ]
+      }
+    },
+    {
+      "id": "VT-025",
+      "title": "Implement Greptile review collection and reply workflow",
+      "milestone": "M4 Polish And Release Readiness",
+      "phase": "phase:4",
+      "parallel_group": "review-automation",
+      "agent": "codex",
+      "labels": [
+        "type:implementation",
+        "area:harness",
+        "agent:codex",
+        "phase:4",
+        "priority:p1",
+        "ci:required",
+        "review:cross-agent",
+        "review:greptile"
+      ],
+      "dependencies": [
+        "VT-014"
+      ],
+      "outcome": "Add scripts or documented commands to collect Greptile findings and prepare fix replies.",
+      "scope": [
+        "Fetch PR reviews/comments with gh and GraphQL where needed.",
+        "Extract Greptile findings into a machine-readable file.",
+        "Generate reply text that references fix commit SHA and test command.",
+        "Document when thread resolution requires human permissions."
+      ],
+      "acceptance_criteria": [
+        "Greptile findings can be handed to a fixer agent without manually reading the whole PR.",
+        "Reply format includes exact fix commit and explanation.",
+        "Permission failures leave actionable status instead of silent failure."
+      ],
+      "review_plan": [
+        "Codex reviews GitHub API correctness.",
+        "Claude reviews review-status readability."
+      ],
+      "ci_expectations": [
+        "Harness validation passes and dry-run output explains required gh commands."
+      ],
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, low-to-medium reasoning",
+        "reasoning_effort": "low",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "docs/harness/**",
+          "scripts/**",
+          "generated/harness-plan/**"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Fetch PR reviews/comments with gh and GraphQL where needed.",
+          "Implement: Extract Greptile findings into a machine-readable file.",
+          "Implement: Generate reply text that references fix commit SHA and test command.",
+          "Implement: Document when thread resolution requires human permissions.",
+          "Verify: Greptile findings can be handed to a fixer agent without manually reading the whole PR.",
+          "Verify: Reply format includes exact fix commit and explanation.",
+          "Verify: Permission failures leave actionable status instead of silent failure.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded."
+        ]
+      }
+    },
+    {
+      "id": "VT-026",
+      "title": "Add Windows app smoke test strategy and checklist",
+      "milestone": "M4 Polish And Release Readiness",
+      "phase": "phase:4",
+      "parallel_group": "testing-strategy",
+      "agent": "codex",
+      "labels": [
+        "type:testing",
+        "area:ci",
+        "area:windows-app",
+        "agent:codex",
+        "phase:4",
+        "priority:p1",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-001",
+        "VT-014"
+      ],
+      "outcome": "Define a practical Windows 11 smoke test strategy that is fast enough for CI and useful for release confidence.",
+      "scope": [
+        "Document unit, integration, UI, packaging, and manual smoke layers.",
+        "Define which checks run on every PR versus release candidate.",
+        "Define expected artifacts for UI and packaging checks."
+      ],
+      "acceptance_criteria": [
+        "Testing strategy avoids hours-long CI runs.",
+        "Failures point to likely file/test owner.",
+        "Windows-specific checks are separated from fast harness checks."
+      ],
+      "review_plan": [
+        "Codex reviews test architecture.",
+        "Claude reviews UI verification coverage."
+      ],
+      "ci_expectations": [
+        "Docs and CI expectations are consistent."
+      ],
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty",
+        "reasoning_effort": "medium",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          ".github/workflows/**",
+          "scripts/**",
+          "docs/harness/ci-strategy.md"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Document unit, integration, UI, packaging, and manual smoke layers.",
+          "Implement: Define which checks run on every PR versus release candidate.",
+          "Implement: Define expected artifacts for UI and packaging checks.",
+          "Verify: Testing strategy avoids hours-long CI runs.",
+          "Verify: Failures point to likely file/test owner.",
+          "Verify: Windows-specific checks are separated from fast harness checks.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell.",
+          "CI logs must stay segmented and concise; add machine-readable summaries for failures."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded.",
+          "CI produces noisy logs or lacks a machine-readable failure artifact."
+        ]
+      }
+    },
+    {
+      "id": "VT-027",
+      "title": "Create first-run diagnostics and logging policy",
+      "milestone": "M4 Polish And Release Readiness",
+      "phase": "phase:4",
+      "parallel_group": "diagnostics",
+      "agent": "codex",
+      "labels": [
+        "type:implementation",
+        "area:windows-app",
+        "agent:codex",
+        "phase:4",
+        "priority:p2",
+        "ci:required",
+        "review:cross-agent"
+      ],
+      "dependencies": [
+        "VT-003",
+        "VT-010",
+        "VT-014"
+      ],
+      "outcome": "Define and implement diagnostics that help fix failures without logging sensitive content.",
+      "scope": [
+        "Log provider name, operation state, duration, and normalized error codes.",
+        "Do not log credentials, raw audio, or full transcripts by default.",
+        "Expose enough diagnostics for CI and user support."
+      ],
+      "acceptance_criteria": [
+        "Diagnostics help identify microphone, credential, network, provider, insertion, and history failures.",
+        "Sensitive content is excluded by default.",
+        "Logs are structured enough for agent consumption."
+      ],
+      "review_plan": [
+        "Codex reviews security and observability.",
+        "Claude reviews user-facing diagnostics copy."
+      ],
+      "ci_expectations": [
+        "Tests or manual checks verify sensitive values are not logged."
+      ],
+      "notes": [],
+      "execution": {
+        "model": "GPT-5.5 via local Codex CLI, low-to-medium reasoning",
+        "reasoning_effort": "low",
+        "agent_command": "codex",
+        "context_budget": "medium",
+        "expected_files": [
+          "src/**",
+          "tests/**",
+          "docs/** when implementation choices need explanation"
+        ],
+        "implementation_steps": [
+          "Read docs/requirements.md and relevant ADRs before editing.",
+          "Inspect existing code and tests before choosing an implementation shape.",
+          "Implement: Log provider name, operation state, duration, and normalized error codes.",
+          "Implement: Do not log credentials, raw audio, or full transcripts by default.",
+          "Implement: Expose enough diagnostics for CI and user support.",
+          "Verify: Diagnostics help identify microphone, credential, network, provider, insertion, and history failures.",
+          "Verify: Sensitive content is excluded by default.",
+          "Verify: Logs are structured enough for agent consumption.",
+          "Run the issue-specific test command and record the result in the PR.",
+          "Open a focused PR that closes only this issue unless the issue explicitly says otherwise."
+        ],
+        "constraints": [
+          "Do not make unrelated refactors.",
+          "Do not introduce paid model API calls for orchestration.",
+          "Preserve user changes and generated harness IDs.",
+          "If a decision is low-risk and reversible, use judgment and document it.",
+          "Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell."
+        ],
+        "failure_modes": [
+          "Acceptance criteria are ambiguous after reading the requirements.",
+          "Required local or Windows-side tool is missing.",
+          "Implementation requires a product/security/architecture decision not already recorded."
+        ]
+      }
     }
   ]
 }

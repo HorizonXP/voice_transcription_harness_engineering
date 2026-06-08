@@ -1,6 +1,6 @@
-# Design settings UI for provider, hotkey, startup, and history controls
+# Implement hotkey settings panel and conflict feedback
 
-> Harness ID: `VT-004`
+> Harness ID: `VT-019`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,51 +9,49 @@
 
 ## Outcome
 
-Create a native Windows 11 settings experience design for provider selection and core preferences.
+Create the settings UI for recording the global hotkey and displaying conflict feedback.
 
 ## Work Metadata
 
 | Field | Value |
 | --- | --- |
-| Milestone | M1 Native Windows App Foundation |
-| Phase | `phase:1` |
-| Parallel Group | `foundation-parallel` |
+| Milestone | M2 Recording And Insertion Workflow |
+| Phase | `phase:2` |
+| Parallel Group | `hotkey-settings` |
 | Recommended Agent | `agent:claude` |
 | Recommended Model | Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs |
 | Reasoning Effort | `medium` |
 | Agent Command | `claude` |
-| Dependencies | `VT-001`, `VT-003` |
-| Labels | `type:implementation`, `area:ui`, `agent:claude`, `phase:1`, `priority:p1`, `ci:required`, `review:cross-agent` |
+| Dependencies | `VT-004`, `VT-005` |
+| Labels | `type:implementation`, `area:ui`, `area:windows-app`, `agent:claude`, `phase:2`, `priority:p1`, `ci:required`, `review:cross-agent` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_004[VT-004]
-    VT_001[VT-001] --> VT_004
-    VT_003[VT-003] --> VT_004
+    VT_019[VT-019]
+    VT_004[VT-004] --> VT_019
+    VT_005[VT-005] --> VT_019
 ```
 
 ## Scope
 
-- [ ] Provider selection with exactly one active provider.
-- [ ] API key entry affordance per provider.
-- [ ] Global hotkey configuration and conflict feedback.
-- [ ] Startup toggle.
-- [ ] Transcript retention and clear-history controls.
+- [ ] Default visible hotkey is Ctrl+Win+H.
+- [ ] Hotkey capture UI handles press/release clearly.
+- [ ] Conflict errors prevent saving and explain the problem.
+- [ ] User can cancel without changing the current hotkey.
 
 ## Prescribed Implementation Plan
 
 - [ ] Read docs/requirements.md and relevant ADRs before editing.
 - [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Provider selection with exactly one active provider.
-- [ ] Implement: API key entry affordance per provider.
-- [ ] Implement: Global hotkey configuration and conflict feedback.
-- [ ] Implement: Startup toggle.
-- [ ] Implement: Transcript retention and clear-history controls.
-- [ ] Verify: Settings surface follows Windows 11 design guidance.
-- [ ] Verify: Provider credentials and active provider state are visually distinct.
-- [ ] Verify: History retention defaults to 30 days and supports manual clearing.
+- [ ] Implement: Default visible hotkey is Ctrl+Win+H.
+- [ ] Implement: Hotkey capture UI handles press/release clearly.
+- [ ] Implement: Conflict errors prevent saving and explain the problem.
+- [ ] Implement: User can cancel without changing the current hotkey.
+- [ ] Verify: Conflict state is visible and actionable.
+- [ ] Verify: The UI does not accept a detected conflicting hotkey.
+- [ ] Verify: The hotkey capture interaction is keyboard-accessible.
 - [ ] Run the issue-specific test command and record the result in the PR.
 - [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
 
@@ -65,9 +63,9 @@ flowchart LR
 
 ## Acceptance Criteria
 
-- [ ] Settings surface follows Windows 11 design guidance.
-- [ ] Provider credentials and active provider state are visually distinct.
-- [ ] History retention defaults to 30 days and supports manual clearing.
+- [ ] Conflict state is visible and actionable.
+- [ ] The UI does not accept a detected conflicting hotkey.
+- [ ] The hotkey capture interaction is keyboard-accessible.
 
 ## Constraints
 
@@ -75,6 +73,7 @@ flowchart LR
 - Do not introduce paid model API calls for orchestration.
 - Preserve user changes and generated harness IDs.
 - If a decision is low-risk and reversible, use judgment and document it.
+- Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell.
 - Follow native Windows 11/Fluent patterns; avoid marketing-page composition.
 - Text and controls must fit at common Windows desktop scaling settings.
 
@@ -98,12 +97,12 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Claude primary design review.
-- [ ] Codex reviews implementation feasibility and settings/state boundaries.
+- [ ] Claude reviews interaction design.
+- [ ] Codex reviews integration with hotkey validation service.
 
 ## CI Expectations
 
-- [ ] UI snapshot or design artifact is attached once the app UI exists.
+- [ ] UI/state tests or manual smoke checklist cover valid, invalid, and cancel paths.
 
 ## Notes
 
@@ -111,15 +110,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-004-design-settings-ui-for-provider-hotkey-startup-and-history-c` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-019-implement-hotkey-settings-panel-and-conflict-feedback` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-004: Design settings UI for provider, hotkey, startup, and history controls.
+You are working on VT-019: Implement hotkey settings panel and conflict feedback.
 
 Recommended model/effort: Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs / medium.
-Primary objective: Create a native Windows 11 settings experience design for provider selection and core preferences.
+Primary objective: Create the settings UI for recording the global hotkey and displaying conflict feedback.
 
 Read:
 - docs/requirements.md

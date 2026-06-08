@@ -1,6 +1,6 @@
-# Implement system tray controls and idle behavior
+# Implement Greptile review collection and reply workflow
 
-> Harness ID: `VT-013`
+> Harness ID: `VT-025`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,60 +9,62 @@
 
 ## Outcome
 
-Run quietly in the system tray with app status and basic actions.
+Add scripts or documented commands to collect Greptile findings and prepare fix replies.
 
 ## Work Metadata
 
 | Field | Value |
 | --- | --- |
-| Milestone | M1 Native Windows App Foundation |
-| Phase | `phase:1` |
-| Parallel Group | `foundation-parallel` |
+| Milestone | M4 Polish And Release Readiness |
+| Phase | `phase:4` |
+| Parallel Group | `review-automation` |
 | Recommended Agent | `agent:codex` |
 | Recommended Model | GPT-5.5 via local Codex CLI, low-to-medium reasoning |
 | Reasoning Effort | `low` |
 | Agent Command | `codex` |
-| Dependencies | `VT-001` |
-| Labels | `type:implementation`, `area:windows-app`, `agent:codex`, `phase:1`, `priority:p1`, `ci:required`, `review:cross-agent` |
+| Dependencies | `VT-014` |
+| Labels | `type:implementation`, `area:harness`, `agent:codex`, `phase:4`, `priority:p1`, `ci:required`, `review:cross-agent`, `review:greptile` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_013[VT-013]
-    VT_001[VT-001] --> VT_013
+    VT_025[VT-025]
+    VT_014[VT-014] --> VT_025
 ```
 
 ## Scope
 
-- [ ] Tray icon indicates app availability.
-- [ ] Tray menu exposes settings and exit.
-- [ ] Idle behavior does not interrupt foreground work.
+- [ ] Fetch PR reviews/comments with gh and GraphQL where needed.
+- [ ] Extract Greptile findings into a machine-readable file.
+- [ ] Generate reply text that references fix commit SHA and test command.
+- [ ] Document when thread resolution requires human permissions.
 
 ## Prescribed Implementation Plan
 
 - [ ] Read docs/requirements.md and relevant ADRs before editing.
 - [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Tray icon indicates app availability.
-- [ ] Implement: Tray menu exposes settings and exit.
-- [ ] Implement: Idle behavior does not interrupt foreground work.
-- [ ] Verify: Tray integration works with the selected app model.
-- [ ] Verify: Settings can be opened from tray.
-- [ ] Verify: Exit cleanly releases hotkey and recording resources.
+- [ ] Implement: Fetch PR reviews/comments with gh and GraphQL where needed.
+- [ ] Implement: Extract Greptile findings into a machine-readable file.
+- [ ] Implement: Generate reply text that references fix commit SHA and test command.
+- [ ] Implement: Document when thread resolution requires human permissions.
+- [ ] Verify: Greptile findings can be handed to a fixer agent without manually reading the whole PR.
+- [ ] Verify: Reply format includes exact fix commit and explanation.
+- [ ] Verify: Permission failures leave actionable status instead of silent failure.
 - [ ] Run the issue-specific test command and record the result in the PR.
 - [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
 
 ## Expected Files Or Areas
 
-- `src/**`
-- `tests/**`
-- `docs/** when implementation choices need explanation`
+- `docs/harness/**`
+- `scripts/**`
+- `generated/harness-plan/**`
 
 ## Acceptance Criteria
 
-- [ ] Tray integration works with the selected app model.
-- [ ] Settings can be opened from tray.
-- [ ] Exit cleanly releases hotkey and recording resources.
+- [ ] Greptile findings can be handed to a fixer agent without manually reading the whole PR.
+- [ ] Reply format includes exact fix commit and explanation.
+- [ ] Permission failures leave actionable status instead of silent failure.
 
 ## Constraints
 
@@ -70,7 +72,6 @@ flowchart LR
 - Do not introduce paid model API calls for orchestration.
 - Preserve user changes and generated harness IDs.
 - If a decision is low-risk and reversible, use judgment and document it.
-- Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell.
 
 <details>
 <summary>Failure modes and escalation rules</summary>
@@ -91,12 +92,12 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Codex reviews tray lifecycle.
-- [ ] Claude reviews tray menu wording and UX.
+- [ ] Codex reviews GitHub API correctness.
+- [ ] Claude reviews review-status readability.
 
 ## CI Expectations
 
-- [ ] Manual smoke test checklist exists for tray behavior.
+- [ ] Harness validation passes and dry-run output explains required gh commands.
 
 ## Notes
 
@@ -104,15 +105,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-013-implement-system-tray-controls-and-idle-behavior` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-025-implement-greptile-review-collection-and-reply-workflow` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-013: Implement system tray controls and idle behavior.
+You are working on VT-025: Implement Greptile review collection and reply workflow.
 
 Recommended model/effort: GPT-5.5 via local Codex CLI, low-to-medium reasoning / low.
-Primary objective: Run quietly in the system tray with app status and basic actions.
+Primary objective: Add scripts or documented commands to collect Greptile findings and prepare fix replies.
 
 Read:
 - docs/requirements.md

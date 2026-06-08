@@ -1,6 +1,6 @@
-# Add Windows packaging and startup foundation
+# Implement transcript history storage and retention engine
 
-> Harness ID: `VT-002`
+> Harness ID: `VT-022`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,46 +9,48 @@
 
 ## Outcome
 
-Establish MSIX-first packaging and startup integration direction.
+Implement full-text transcript history storage with 30-day retention and manual clearing, independent of UI polish.
 
 ## Work Metadata
 
 | Field | Value |
 | --- | --- |
-| Milestone | M1 Native Windows App Foundation |
-| Phase | `phase:1` |
-| Parallel Group | `foundation` |
+| Milestone | M2 Recording And Insertion Workflow |
+| Phase | `phase:2` |
+| Parallel Group | `history-engine` |
 | Recommended Agent | `agent:codex` |
-| Recommended Model | GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty |
-| Reasoning Effort | `medium` |
+| Recommended Model | GPT-5.5 via local Codex CLI, low-to-medium reasoning |
+| Reasoning Effort | `low` |
 | Agent Command | `codex` |
-| Dependencies | `VT-001` |
-| Labels | `type:foundation`, `area:windows-app`, `agent:codex`, `phase:1`, `priority:p0`, `ci:required`, `review:cross-agent` |
+| Dependencies | `VT-003` |
+| Labels | `type:implementation`, `area:windows-app`, `agent:codex`, `phase:2`, `priority:p1`, `ci:required`, `review:cross-agent` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_002[VT-002]
-    VT_001[VT-001] --> VT_002
+    VT_022[VT-022]
+    VT_003[VT-003] --> VT_022
 ```
 
 ## Scope
 
-- [ ] Add packaging project or documented packaging scaffold.
-- [ ] Define startup toggle integration for the selected packaging model.
-- [ ] Document signing and local developer constraints.
+- [ ] Persist full transcript text and metadata.
+- [ ] Apply default 30-day retention.
+- [ ] Expose clear-history operation.
+- [ ] Keep raw audio out of history by default.
 
 ## Prescribed Implementation Plan
 
 - [ ] Read docs/requirements.md and relevant ADRs before editing.
 - [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Add packaging project or documented packaging scaffold.
-- [ ] Implement: Define startup toggle integration for the selected packaging model.
-- [ ] Implement: Document signing and local developer constraints.
-- [ ] Verify: Packaging is included from the start or a documented Windows App SDK blocker is recorded.
-- [ ] Verify: Startup toggle path is documented and testable.
-- [ ] Verify: CI strategy includes packaging validation expectations.
+- [ ] Implement: Persist full transcript text and metadata.
+- [ ] Implement: Apply default 30-day retention.
+- [ ] Implement: Expose clear-history operation.
+- [ ] Implement: Keep raw audio out of history by default.
+- [ ] Verify: Retention engine can delete expired history entries.
+- [ ] Verify: Manual clearing removes full transcript text.
+- [ ] Verify: History writes do not log full transcript text by default.
 - [ ] Run the issue-specific test command and record the result in the PR.
 - [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
 
@@ -60,9 +62,9 @@ flowchart LR
 
 ## Acceptance Criteria
 
-- [ ] Packaging is included from the start or a documented Windows App SDK blocker is recorded.
-- [ ] Startup toggle path is documented and testable.
-- [ ] CI strategy includes packaging validation expectations.
+- [ ] Retention engine can delete expired history entries.
+- [ ] Manual clearing removes full transcript text.
+- [ ] History writes do not log full transcript text by default.
 
 ## Constraints
 
@@ -91,12 +93,12 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Codex reviews Windows packaging correctness.
-- [ ] Claude reviews settings/startup UX clarity.
+- [ ] Codex reviews privacy and persistence behavior.
+- [ ] Claude reviews history state needed by UI.
 
 ## CI Expectations
 
-- [ ] Packaging-related scripts or docs pass harness validation.
+- [ ] Unit tests cover save, query, retention cleanup, and clear-history behavior.
 
 ## Notes
 
@@ -104,15 +106,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-002-add-windows-packaging-and-startup-foundation` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-022-implement-transcript-history-storage-and-retention-engine` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-002: Add Windows packaging and startup foundation.
+You are working on VT-022: Implement transcript history storage and retention engine.
 
-Recommended model/effort: GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty / medium.
-Primary objective: Establish MSIX-first packaging and startup integration direction.
+Recommended model/effort: GPT-5.5 via local Codex CLI, low-to-medium reasoning / low.
+Primary objective: Implement full-text transcript history storage with 30-day retention and manual clearing, independent of UI polish.
 
 Read:
 - docs/requirements.md

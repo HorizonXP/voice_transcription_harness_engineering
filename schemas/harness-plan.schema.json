@@ -3,7 +3,7 @@
   "$id": "https://example.local/harness-plan.schema.json",
   "title": "Harness Plan",
   "type": "object",
-  "required": ["version", "source", "project", "labels", "milestones", "issues"],
+  "required": ["version", "source", "planner", "project", "labels", "milestones", "issues"],
   "properties": {
     "version": { "type": "integer", "const": 1 },
     "source": {
@@ -12,6 +12,16 @@
       "properties": {
         "requirements_path": { "type": "string" },
         "generated_at": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "planner": {
+      "type": "object",
+      "required": ["mode", "intended_production_planner", "note"],
+      "properties": {
+        "mode": { "type": "string" },
+        "intended_production_planner": { "type": "string" },
+        "note": { "type": "string" }
       },
       "additionalProperties": false
     },
@@ -58,7 +68,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "title", "milestone", "phase", "parallel_group", "agent", "labels", "dependencies", "outcome", "scope", "acceptance_criteria", "review_plan", "ci_expectations"],
+        "required": ["id", "title", "milestone", "phase", "parallel_group", "agent", "labels", "dependencies", "outcome", "scope", "acceptance_criteria", "review_plan", "ci_expectations", "execution"],
         "properties": {
           "id": { "type": "string", "pattern": "^[A-Z]+-[0-9]{3}$" },
           "title": { "type": "string" },
@@ -100,6 +110,37 @@
           "notes": {
             "type": "array",
             "items": { "type": "string" }
+          },
+          "execution": {
+            "type": "object",
+            "required": ["model", "reasoning_effort", "agent_command", "context_budget", "expected_files", "implementation_steps", "constraints", "failure_modes"],
+            "properties": {
+              "model": { "type": "string" },
+              "reasoning_effort": { "type": "string" },
+              "agent_command": { "type": "string" },
+              "context_budget": { "type": "string" },
+              "expected_files": {
+                "type": "array",
+                "items": { "type": "string" },
+                "minItems": 1
+              },
+              "implementation_steps": {
+                "type": "array",
+                "items": { "type": "string" },
+                "minItems": 4
+              },
+              "constraints": {
+                "type": "array",
+                "items": { "type": "string" },
+                "minItems": 3
+              },
+              "failure_modes": {
+                "type": "array",
+                "items": { "type": "string" },
+                "minItems": 2
+              }
+            },
+            "additionalProperties": false
           }
         },
         "additionalProperties": false

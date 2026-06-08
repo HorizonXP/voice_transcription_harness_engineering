@@ -15,6 +15,21 @@ The harness has two modes:
 
 Dry-run is the default because the plan should be inspectable before GitHub is changed.
 
+## Planner Model
+
+The checked-in dry-run plan is a deterministic sample and regression fixture. It proves the renderer, validator, templates, and GitHub apply path.
+
+The intended production workflow is different:
+
+1. Run a high-capability planner against the requirements document.
+2. Use GPT-5.5 extra-high reasoning through the local Codex CLI/subscription for decomposition.
+3. Produce the same structured harness-plan JSON shape.
+4. Validate the plan with `scripts/harness_plan.py validate`.
+5. Render and inspect the issue markdown.
+6. Apply to GitHub only after explicit human approval.
+
+Do not use paid API calls for this planning stage. Use the local Codex CLI/subscription available on the machine. If the CLI cannot provide the requested model or reasoning level, stop and document the tool limitation instead of silently downgrading the planner.
+
 ## Pipeline
 
 1. Read a requirements document.

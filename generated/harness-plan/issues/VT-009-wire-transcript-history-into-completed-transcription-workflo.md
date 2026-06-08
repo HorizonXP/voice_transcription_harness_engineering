@@ -1,6 +1,6 @@
-# Implement global push-to-talk hotkey handling
+# Wire transcript history into completed transcription workflow
 
-> Harness ID: `VT-005`
+> Harness ID: `VT-009`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,7 +9,7 @@
 
 ## Outcome
 
-Implement configurable global push-to-talk hotkey handling with conflict detection.
+Ensure completed and fallback transcripts are written to history through the storage engine.
 
 ## Work Metadata
 
@@ -17,39 +17,42 @@ Implement configurable global push-to-talk hotkey handling with conflict detecti
 | --- | --- |
 | Milestone | M2 Recording And Insertion Workflow |
 | Phase | `phase:2` |
-| Parallel Group | `recording` |
+| Parallel Group | `history` |
 | Recommended Agent | `agent:codex` |
 | Recommended Model | GPT-5.5 via local Codex CLI, low-to-medium reasoning |
-| Reasoning Effort | `medium` |
+| Reasoning Effort | `low` |
 | Agent Command | `codex` |
-| Dependencies | `VT-001`, `VT-003` |
-| Labels | `type:implementation`, `area:windows-app`, `agent:codex`, `phase:2`, `priority:p0`, `ci:required`, `review:cross-agent` |
+| Dependencies | `VT-003`, `VT-008`, `VT-022` |
+| Labels | `type:implementation`, `area:windows-app`, `agent:codex`, `phase:2`, `priority:p1`, `ci:required`, `review:cross-agent` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_005[VT-005]
-    VT_001[VT-001] --> VT_005
-    VT_003[VT-003] --> VT_005
+    VT_009[VT-009]
+    VT_003[VT-003] --> VT_009
+    VT_008[VT-008] --> VT_009
+    VT_022[VT-022] --> VT_009
 ```
 
 ## Scope
 
-- [ ] Default hotkey is Ctrl+Win+H.
-- [ ] Press starts recording and release stops recording.
-- [ ] Settings validation rejects detectable conflicts.
+- [ ] Write successful active-insertion transcripts to history.
+- [ ] Write clipboard-fallback transcripts to history.
+- [ ] Include provider, duration, timestamp, and delivery outcome metadata.
+- [ ] Do not duplicate entries on retry or UI refresh.
 
 ## Prescribed Implementation Plan
 
 - [ ] Read docs/requirements.md and relevant ADRs before editing.
 - [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Default hotkey is Ctrl+Win+H.
-- [ ] Implement: Press starts recording and release stops recording.
-- [ ] Implement: Settings validation rejects detectable conflicts.
-- [ ] Verify: Hotkey lifecycle is testable.
-- [ ] Verify: Conflict detection failure is shown to the user.
-- [ ] Verify: The app does not accept a detected conflicting hotkey.
+- [ ] Implement: Write successful active-insertion transcripts to history.
+- [ ] Implement: Write clipboard-fallback transcripts to history.
+- [ ] Implement: Include provider, duration, timestamp, and delivery outcome metadata.
+- [ ] Implement: Do not duplicate entries on retry or UI refresh.
+- [ ] Verify: Every completed transcript path records exactly one history entry.
+- [ ] Verify: Fallback path preserves transcript text even when insertion fails.
+- [ ] Verify: History writes use the VT-022 storage engine instead of ad hoc persistence.
 - [ ] Run the issue-specific test command and record the result in the PR.
 - [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
 
@@ -61,9 +64,9 @@ flowchart LR
 
 ## Acceptance Criteria
 
-- [ ] Hotkey lifecycle is testable.
-- [ ] Conflict detection failure is shown to the user.
-- [ ] The app does not accept a detected conflicting hotkey.
+- [ ] Every completed transcript path records exactly one history entry.
+- [ ] Fallback path preserves transcript text even when insertion fails.
+- [ ] History writes use the VT-022 storage engine instead of ad hoc persistence.
 
 ## Constraints
 
@@ -92,12 +95,12 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Codex reviews Windows API correctness.
-- [ ] Claude reviews user feedback for conflicts.
+- [ ] Codex reviews workflow and persistence integration.
+- [ ] Claude reviews user-visible fallback/history behavior.
 
 ## CI Expectations
 
-- [ ] Unit or integration tests cover hotkey state transitions where possible.
+- [ ] Workflow tests cover active insertion and clipboard fallback history writes.
 
 ## Notes
 
@@ -105,15 +108,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-005-implement-global-push-to-talk-hotkey-handling` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-009-wire-transcript-history-into-completed-transcription-workflo` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-005: Implement global push-to-talk hotkey handling.
+You are working on VT-009: Wire transcript history into completed transcription workflow.
 
-Recommended model/effort: GPT-5.5 via local Codex CLI, low-to-medium reasoning / medium.
-Primary objective: Implement configurable global push-to-talk hotkey handling with conflict detection.
+Recommended model/effort: GPT-5.5 via local Codex CLI, low-to-medium reasoning / low.
+Primary objective: Ensure completed and fallback transcripts are written to history through the storage engine.
 
 Read:
 - docs/requirements.md

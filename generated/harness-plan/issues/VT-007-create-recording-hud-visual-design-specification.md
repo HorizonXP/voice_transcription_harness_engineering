@@ -1,6 +1,6 @@
-# Design settings UI for provider, hotkey, startup, and history controls
+# Create recording HUD visual design specification
 
-> Harness ID: `VT-004`
+> Harness ID: `VT-007`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,51 +9,47 @@
 
 ## Outcome
 
-Create a native Windows 11 settings experience design for provider selection and core preferences.
+Create the visual and interaction specification for the compact Windows 11 HUD before implementation.
 
 ## Work Metadata
 
 | Field | Value |
 | --- | --- |
-| Milestone | M1 Native Windows App Foundation |
-| Phase | `phase:1` |
-| Parallel Group | `foundation-parallel` |
+| Milestone | M2 Recording And Insertion Workflow |
+| Phase | `phase:2` |
+| Parallel Group | `recording-parallel` |
 | Recommended Agent | `agent:claude` |
 | Recommended Model | Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs |
 | Reasoning Effort | `medium` |
 | Agent Command | `claude` |
 | Dependencies | `VT-001`, `VT-003` |
-| Labels | `type:implementation`, `area:ui`, `agent:claude`, `phase:1`, `priority:p1`, `ci:required`, `review:cross-agent` |
+| Labels | `type:implementation`, `area:ui`, `agent:claude`, `phase:2`, `priority:p0`, `ci:required`, `review:cross-agent` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_004[VT-004]
-    VT_001[VT-001] --> VT_004
-    VT_003[VT-003] --> VT_004
+    VT_007[VT-007]
+    VT_001[VT-001] --> VT_007
+    VT_003[VT-003] --> VT_007
 ```
 
 ## Scope
 
-- [ ] Provider selection with exactly one active provider.
-- [ ] API key entry affordance per provider.
-- [ ] Global hotkey configuration and conflict feedback.
-- [ ] Startup toggle.
-- [ ] Transcript retention and clear-history controls.
+- [ ] Specify HUD layout, placement, sizing, visual hierarchy, and state variants.
+- [ ] Specify how audio activity and transcription progress appear without layout shift.
+- [ ] Specify focus and dismissal behavior without implementing the state machine.
 
 ## Prescribed Implementation Plan
 
 - [ ] Read docs/requirements.md and relevant ADRs before editing.
 - [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Provider selection with exactly one active provider.
-- [ ] Implement: API key entry affordance per provider.
-- [ ] Implement: Global hotkey configuration and conflict feedback.
-- [ ] Implement: Startup toggle.
-- [ ] Implement: Transcript retention and clear-history controls.
-- [ ] Verify: Settings surface follows Windows 11 design guidance.
-- [ ] Verify: Provider credentials and active provider state are visually distinct.
-- [ ] Verify: History retention defaults to 30 days and supports manual clearing.
+- [ ] Implement: Specify HUD layout, placement, sizing, visual hierarchy, and state variants.
+- [ ] Implement: Specify how audio activity and transcription progress appear without layout shift.
+- [ ] Implement: Specify focus and dismissal behavior without implementing the state machine.
+- [ ] Verify: Design spec covers recording, transcribing, fallback, error, and completed states.
+- [ ] Verify: Spec follows native Windows 11 visual guidance.
+- [ ] Verify: Spec is detailed enough for VT-021 to implement without re-designing the HUD.
 - [ ] Run the issue-specific test command and record the result in the PR.
 - [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
 
@@ -65,9 +61,9 @@ flowchart LR
 
 ## Acceptance Criteria
 
-- [ ] Settings surface follows Windows 11 design guidance.
-- [ ] Provider credentials and active provider state are visually distinct.
-- [ ] History retention defaults to 30 days and supports manual clearing.
+- [ ] Design spec covers recording, transcribing, fallback, error, and completed states.
+- [ ] Spec follows native Windows 11 visual guidance.
+- [ ] Spec is detailed enough for VT-021 to implement without re-designing the HUD.
 
 ## Constraints
 
@@ -98,12 +94,12 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Claude primary design review.
-- [ ] Codex reviews implementation feasibility and settings/state boundaries.
+- [ ] Claude reviews visual and interaction quality.
+- [ ] Codex reviews state-machine integration.
 
 ## CI Expectations
 
-- [ ] UI snapshot or design artifact is attached once the app UI exists.
+- [ ] UI smoke test or manual verification checklist exists.
 
 ## Notes
 
@@ -111,15 +107,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-004-design-settings-ui-for-provider-hotkey-startup-and-history-c` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-007-create-recording-hud-visual-design-specification` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-004: Design settings UI for provider, hotkey, startup, and history controls.
+You are working on VT-007: Create recording HUD visual design specification.
 
 Recommended model/effort: Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs / medium.
-Primary objective: Create a native Windows 11 settings experience design for provider selection and core preferences.
+Primary objective: Create the visual and interaction specification for the compact Windows 11 HUD before implementation.
 
 Read:
 - docs/requirements.md

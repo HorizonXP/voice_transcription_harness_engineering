@@ -1,6 +1,6 @@
-# Select native Windows app stack and repository structure
+# Define HUD state machine before visual implementation
 
-> Harness ID: `VT-001`
+> Harness ID: `VT-020`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,60 +9,62 @@
 
 ## Outcome
 
-Document and scaffold the chosen Windows App SDK/WinUI 3 solution structure without implementing app features.
+Define the HUD state machine so visual implementation does not invent workflow behavior.
 
 ## Work Metadata
 
 | Field | Value |
 | --- | --- |
-| Milestone | M1 Native Windows App Foundation |
-| Phase | `phase:1` |
-| Parallel Group | `foundation` |
+| Milestone | M2 Recording And Insertion Workflow |
+| Phase | `phase:2` |
+| Parallel Group | `hud-design` |
 | Recommended Agent | `agent:codex` |
 | Recommended Model | GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty |
 | Reasoning Effort | `medium` |
 | Agent Command | `codex` |
-| Dependencies | `None` |
-| Labels | `type:foundation`, `area:windows-app`, `agent:codex`, `phase:1`, `priority:p0`, `ci:required`, `review:cross-agent` |
+| Dependencies | `VT-003`, `VT-006`, `VT-008` |
+| Labels | `type:foundation`, `area:ui`, `area:windows-app`, `agent:codex`, `phase:2`, `priority:p0`, `ci:required`, `review:cross-agent` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_001[VT-001]
-    Start([Ready]) --> VT_001
+    VT_020[VT-020]
+    VT_003[VT-003] --> VT_020
+    VT_006[VT-006] --> VT_020
+    VT_008[VT-008] --> VT_020
 ```
 
 ## Scope
 
-- [ ] Create the initial native Windows solution/project structure.
-- [ ] Document Windows-side prerequisites required from WSL2.
-- [ ] Keep the app target Windows 11 only.
+- [ ] Define idle, preparing, recording, transcribing, inserting, fallback, error, and completed states.
+- [ ] Define transitions, cancellation behavior, and auto-dismiss triggers.
+- [ ] Define data each state exposes to the UI.
 
 ## Prescribed Implementation Plan
 
 - [ ] Read docs/requirements.md and relevant ADRs before editing.
 - [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Create the initial native Windows solution/project structure.
-- [ ] Implement: Document Windows-side prerequisites required from WSL2.
-- [ ] Implement: Keep the app target Windows 11 only.
-- [ ] Verify: Repository contains a native Windows app skeleton plan or scaffold aligned with Windows App SDK and WinUI 3.
-- [ ] Verify: Build prerequisites are documented for Windows 11.
-- [ ] Verify: No Electron or browser-wrapper app shell is introduced.
+- [ ] Implement: Define idle, preparing, recording, transcribing, inserting, fallback, error, and completed states.
+- [ ] Implement: Define transitions, cancellation behavior, and auto-dismiss triggers.
+- [ ] Implement: Define data each state exposes to the UI.
+- [ ] Verify: HUD implementation can follow the state machine without product guesswork.
+- [ ] Verify: Auto-dismiss happens only after insertion or fallback notification is complete.
+- [ ] Verify: Error states preserve transcript text when available.
 - [ ] Run the issue-specific test command and record the result in the PR.
 - [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
 
 ## Expected Files Or Areas
 
-- `src/**`
-- `tests/**`
-- `docs/** when implementation choices need explanation`
+- `src/** UI files`
+- `docs/**/*.md for UI verification notes`
+- `tests/** UI smoke artifacts when available`
 
 ## Acceptance Criteria
 
-- [ ] Repository contains a native Windows app skeleton plan or scaffold aligned with Windows App SDK and WinUI 3.
-- [ ] Build prerequisites are documented for Windows 11.
-- [ ] No Electron or browser-wrapper app shell is introduced.
+- [ ] HUD implementation can follow the state machine without product guesswork.
+- [ ] Auto-dismiss happens only after insertion or fallback notification is complete.
+- [ ] Error states preserve transcript text when available.
 
 ## Constraints
 
@@ -71,6 +73,8 @@ flowchart LR
 - Preserve user changes and generated harness IDs.
 - If a decision is low-risk and reversible, use judgment and document it.
 - Keep the implementation native Windows 11; do not introduce Electron or a browser-wrapper shell.
+- Follow native Windows 11/Fluent patterns; avoid marketing-page composition.
+- Text and controls must fit at common Windows desktop scaling settings.
 
 <details>
 <summary>Failure modes and escalation rules</summary>
@@ -78,6 +82,7 @@ flowchart LR
 - Acceptance criteria are ambiguous after reading the requirements.
 - Required local or Windows-side tool is missing.
 - Implementation requires a product/security/architecture decision not already recorded.
+- Visual behavior cannot be verified without a running Windows UI; attach a manual verification checklist.
 
 If one of these occurs, stop and report:
 
@@ -91,13 +96,12 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Codex implementation review for architecture and build viability.
-- [ ] Claude review for native app UX implications.
+- [ ] Codex reviews state-machine completeness.
+- [ ] Claude reviews whether states support clear UI.
 
 ## CI Expectations
 
-- [ ] Harness validation passes.
-- [ ] Future Windows build command is documented even if not yet runnable from WSL2.
+- [ ] State-machine tests or documentation examples exist.
 
 ## Notes
 
@@ -105,15 +109,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-001-select-native-windows-app-stack-and-repository-structure` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-020-define-hud-state-machine-before-visual-implementation` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-001: Select native Windows app stack and repository structure.
+You are working on VT-020: Define HUD state machine before visual implementation.
 
 Recommended model/effort: GPT-5.5 via local Codex CLI, medium reasoning; escalate to high for architecture/security/API uncertainty / medium.
-Primary objective: Document and scaffold the chosen Windows App SDK/WinUI 3 solution structure without implementing app features.
+Primary objective: Define the HUD state machine so visual implementation does not invent workflow behavior.
 
 Read:
 - docs/requirements.md

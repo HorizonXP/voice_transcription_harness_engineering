@@ -1,6 +1,6 @@
-# Design settings UI for provider, hotkey, startup, and history controls
+# Implement HUD visual surface from state machine
 
-> Harness ID: `VT-004`
+> Harness ID: `VT-021`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,51 +9,49 @@
 
 ## Outcome
 
-Create a native Windows 11 settings experience design for provider selection and core preferences.
+Implement the HUD visual surface using the prescribed state machine.
 
 ## Work Metadata
 
 | Field | Value |
 | --- | --- |
-| Milestone | M1 Native Windows App Foundation |
-| Phase | `phase:1` |
-| Parallel Group | `foundation-parallel` |
+| Milestone | M2 Recording And Insertion Workflow |
+| Phase | `phase:2` |
+| Parallel Group | `hud-implementation` |
 | Recommended Agent | `agent:claude` |
 | Recommended Model | Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs |
 | Reasoning Effort | `medium` |
 | Agent Command | `claude` |
-| Dependencies | `VT-001`, `VT-003` |
-| Labels | `type:implementation`, `area:ui`, `agent:claude`, `phase:1`, `priority:p1`, `ci:required`, `review:cross-agent` |
+| Dependencies | `VT-007`, `VT-020` |
+| Labels | `type:implementation`, `area:ui`, `agent:claude`, `phase:2`, `priority:p0`, `ci:required`, `review:cross-agent` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_004[VT-004]
-    VT_001[VT-001] --> VT_004
-    VT_003[VT-003] --> VT_004
+    VT_021[VT-021]
+    VT_007[VT-007] --> VT_021
+    VT_020[VT-020] --> VT_021
 ```
 
 ## Scope
 
-- [ ] Provider selection with exactly one active provider.
-- [ ] API key entry affordance per provider.
-- [ ] Global hotkey configuration and conflict feedback.
-- [ ] Startup toggle.
-- [ ] Transcript retention and clear-history controls.
+- [ ] Render all HUD states from VT-020.
+- [ ] Position centered near the lower screen and inset above the bottom edge.
+- [ ] Show audio activity without layout shift.
+- [ ] Keep the foreground application focus behavior intact.
 
 ## Prescribed Implementation Plan
 
 - [ ] Read docs/requirements.md and relevant ADRs before editing.
 - [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Provider selection with exactly one active provider.
-- [ ] Implement: API key entry affordance per provider.
-- [ ] Implement: Global hotkey configuration and conflict feedback.
-- [ ] Implement: Startup toggle.
-- [ ] Implement: Transcript retention and clear-history controls.
-- [ ] Verify: Settings surface follows Windows 11 design guidance.
-- [ ] Verify: Provider credentials and active provider state are visually distinct.
-- [ ] Verify: History retention defaults to 30 days and supports manual clearing.
+- [ ] Implement: Render all HUD states from VT-020.
+- [ ] Implement: Position centered near the lower screen and inset above the bottom edge.
+- [ ] Implement: Show audio activity without layout shift.
+- [ ] Implement: Keep the foreground application focus behavior intact.
+- [ ] Verify: HUD renders every state without text overlap.
+- [ ] Verify: HUD does not behave like a modal dialog.
+- [ ] Verify: HUD is visually consistent with Windows 11 surfaces.
 - [ ] Run the issue-specific test command and record the result in the PR.
 - [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
 
@@ -65,9 +63,9 @@ flowchart LR
 
 ## Acceptance Criteria
 
-- [ ] Settings surface follows Windows 11 design guidance.
-- [ ] Provider credentials and active provider state are visually distinct.
-- [ ] History retention defaults to 30 days and supports manual clearing.
+- [ ] HUD renders every state without text overlap.
+- [ ] HUD does not behave like a modal dialog.
+- [ ] HUD is visually consistent with Windows 11 surfaces.
 
 ## Constraints
 
@@ -98,12 +96,12 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Claude primary design review.
-- [ ] Codex reviews implementation feasibility and settings/state boundaries.
+- [ ] Claude reviews visual polish.
+- [ ] Codex reviews state binding and focus behavior.
 
 ## CI Expectations
 
-- [ ] UI snapshot or design artifact is attached once the app UI exists.
+- [ ] UI smoke checklist or screenshot artifacts cover all states.
 
 ## Notes
 
@@ -111,15 +109,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-004-design-settings-ui-for-provider-hotkey-startup-and-history-c` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-021-implement-hud-visual-surface-from-state-machine` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-004: Design settings UI for provider, hotkey, startup, and history controls.
+You are working on VT-021: Implement HUD visual surface from state machine.
 
 Recommended model/effort: Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs / medium.
-Primary objective: Create a native Windows 11 settings experience design for provider selection and core preferences.
+Primary objective: Implement the HUD visual surface using the prescribed state machine.
 
 Read:
 - docs/requirements.md

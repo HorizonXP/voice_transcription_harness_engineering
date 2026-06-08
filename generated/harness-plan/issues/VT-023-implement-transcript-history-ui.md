@@ -1,6 +1,6 @@
-# Design settings UI for provider, hotkey, startup, and history controls
+# Implement transcript history UI
 
-> Harness ID: `VT-004`
+> Harness ID: `VT-023`
 
 > [!IMPORTANT]
 > This issue is designed for a lower/medium-effort worker. Do not re-plan the product.
@@ -9,51 +9,49 @@
 
 ## Outcome
 
-Create a native Windows 11 settings experience design for provider selection and core preferences.
+Implement the transcript history view and retention controls.
 
 ## Work Metadata
 
 | Field | Value |
 | --- | --- |
-| Milestone | M1 Native Windows App Foundation |
-| Phase | `phase:1` |
-| Parallel Group | `foundation-parallel` |
+| Milestone | M2 Recording And Insertion Workflow |
+| Phase | `phase:2` |
+| Parallel Group | `history-ui` |
 | Recommended Agent | `agent:claude` |
 | Recommended Model | Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs |
 | Reasoning Effort | `medium` |
 | Agent Command | `claude` |
-| Dependencies | `VT-001`, `VT-003` |
-| Labels | `type:implementation`, `area:ui`, `agent:claude`, `phase:1`, `priority:p1`, `ci:required`, `review:cross-agent` |
+| Dependencies | `VT-017`, `VT-022` |
+| Labels | `type:implementation`, `area:ui`, `agent:claude`, `phase:2`, `priority:p2`, `ci:required`, `review:cross-agent` |
 
 ## Dependency View
 
 ```mermaid
 flowchart LR
-    VT_004[VT-004]
-    VT_001[VT-001] --> VT_004
-    VT_003[VT-003] --> VT_004
+    VT_023[VT-023]
+    VT_017[VT-017] --> VT_023
+    VT_022[VT-022] --> VT_023
 ```
 
 ## Scope
 
-- [ ] Provider selection with exactly one active provider.
-- [ ] API key entry affordance per provider.
-- [ ] Global hotkey configuration and conflict feedback.
-- [ ] Startup toggle.
-- [ ] Transcript retention and clear-history controls.
+- [ ] Show recent transcript entries with provider and timestamp metadata.
+- [ ] Support manual clear-history action.
+- [ ] Expose retention setting with 30-day default.
+- [ ] Avoid showing raw audio or credentials.
 
 ## Prescribed Implementation Plan
 
 - [ ] Read docs/requirements.md and relevant ADRs before editing.
 - [ ] Inspect existing code and tests before choosing an implementation shape.
-- [ ] Implement: Provider selection with exactly one active provider.
-- [ ] Implement: API key entry affordance per provider.
-- [ ] Implement: Global hotkey configuration and conflict feedback.
-- [ ] Implement: Startup toggle.
-- [ ] Implement: Transcript retention and clear-history controls.
-- [ ] Verify: Settings surface follows Windows 11 design guidance.
-- [ ] Verify: Provider credentials and active provider state are visually distinct.
-- [ ] Verify: History retention defaults to 30 days and supports manual clearing.
+- [ ] Implement: Show recent transcript entries with provider and timestamp metadata.
+- [ ] Implement: Support manual clear-history action.
+- [ ] Implement: Expose retention setting with 30-day default.
+- [ ] Implement: Avoid showing raw audio or credentials.
+- [ ] Verify: History UI is scannable and compact.
+- [ ] Verify: Clear-history action is explicit and hard to trigger accidentally.
+- [ ] Verify: Retention control is understandable without long explanatory text.
 - [ ] Run the issue-specific test command and record the result in the PR.
 - [ ] Open a focused PR that closes only this issue unless the issue explicitly says otherwise.
 
@@ -65,9 +63,9 @@ flowchart LR
 
 ## Acceptance Criteria
 
-- [ ] Settings surface follows Windows 11 design guidance.
-- [ ] Provider credentials and active provider state are visually distinct.
-- [ ] History retention defaults to 30 days and supports manual clearing.
+- [ ] History UI is scannable and compact.
+- [ ] Clear-history action is explicit and hard to trigger accidentally.
+- [ ] Retention control is understandable without long explanatory text.
 
 ## Constraints
 
@@ -98,12 +96,12 @@ NEEDED_DECISION: <yes|no>
 
 ## Review Plan
 
-- [ ] Claude primary design review.
-- [ ] Codex reviews implementation feasibility and settings/state boundaries.
+- [ ] Claude reviews UI clarity.
+- [ ] Codex reviews privacy and state integration.
 
 ## CI Expectations
 
-- [ ] UI snapshot or design artifact is attached once the app UI exists.
+- [ ] UI/state tests or manual smoke checklist cover history display and clearing.
 
 ## Notes
 
@@ -111,15 +109,15 @@ NEEDED_DECISION: <yes|no>
 
 ## Agent Handoff
 
-When assigned, create a branch named `work/vt-004-design-settings-ui-for-provider-hotkey-startup-and-history-c` and open a PR that links this issue.
+When assigned, create a branch named `work/vt-023-implement-transcript-history-ui` and open a PR that links this issue.
 
 Use this worker prompt:
 
 ```text
-You are working on VT-004: Design settings UI for provider, hotkey, startup, and history controls.
+You are working on VT-023: Implement transcript history UI.
 
 Recommended model/effort: Claude Code Sonnet, medium effort; use Opus/high only for visual system decisions or ambiguous UX tradeoffs / medium.
-Primary objective: Create a native Windows 11 settings experience design for provider selection and core preferences.
+Primary objective: Implement the transcript history view and retention controls.
 
 Read:
 - docs/requirements.md
