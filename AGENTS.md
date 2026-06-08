@@ -21,6 +21,7 @@ When making a judgment call, document the decision in the relevant artifact and 
 From this point forward, repository changes should go through pull requests.
 
 - Create a branch for every coherent change.
+- Use a separate Git worktree for each parallel worker/issue whenever possible.
 - Use the repository pull request template.
 - Keep each PR scoped to one issue or one explicit harness task.
 - Run relevant validation before opening the PR.
@@ -28,6 +29,44 @@ From this point forward, repository changes should go through pull requests.
 - Reply to Greptile findings with the exact fix commit and concise explanation.
 - Resolve review threads when GitHub permissions allow it.
 - Keep `main` clean and protected once branch protection is enabled.
+
+## Worktree Isolation
+
+Parallel workers must avoid sharing the same checkout.
+
+Use Git worktrees for issue work whenever possible:
+
+```sh
+git fetch origin
+git worktree add ../voice-transcription-worktrees/<branch-name> -b <branch-name> origin/main
+cd ../voice-transcription-worktrees/<branch-name>
+```
+
+Recommended branch naming:
+
+```text
+work/<harness-id>-short-title
+review/<harness-id>-short-title
+fix/<pr-number>-greptile
+```
+
+Rules:
+
+- One issue branch per worktree.
+- One tmux worker session per worktree.
+- Do not run multiple implementation agents in the same checkout.
+- Do not reuse another worker's worktree unless explicitly assigned a review/fix task for that branch.
+- Before starting, verify the worktree branch and status with `git status --short --branch`.
+- After pushing and opening a PR, leave the worktree intact until review and CI repair are complete.
+- Remove worktrees only after the PR is merged or abandoned.
+
+Worktree cleanup:
+
+```sh
+git worktree list
+git worktree remove ../voice-transcription-worktrees/<branch-name>
+git branch -d <branch-name>
+```
 
 ## GitHub Formatting Standard
 
@@ -64,6 +103,7 @@ Generated issues should carry enough detail that low or medium reasoning workers
 
 Workers should:
 
+- Work from their assigned issue worktree, not the coordinator checkout.
 - Read `docs/requirements.md`, relevant ADRs, and the assigned issue before editing.
 - Follow the prescribed implementation plan and constraints.
 - Keep changes focused.

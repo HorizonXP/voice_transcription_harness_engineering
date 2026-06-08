@@ -78,6 +78,30 @@ Every PR should include:
 
 Do not submit ad hoc PR bodies.
 
+## Worktree Isolation
+
+Use the worktree assigned by the coordinator. Do not perform implementation work in the coordinator checkout or in another worker's checkout.
+
+Before editing, verify:
+
+```sh
+git status --short --branch
+pwd
+```
+
+Expected pattern:
+
+```text
+../voice-transcription-worktrees/<branch-name>
+```
+
+Rules:
+
+- One Claude Code worker session per issue worktree.
+- Do not share a worktree with Codex or another Claude worker.
+- If assigned to review a Codex branch, use a separate review worktree or inspect the branch without modifying it unless explicitly asked to fix.
+- Keep UI/design artifacts, screenshots, and notes scoped to the assigned branch.
+
 ## GitHub Formatting
 
 Use GitHub-flavored Markdown deliberately:
