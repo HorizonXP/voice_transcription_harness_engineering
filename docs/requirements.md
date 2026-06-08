@@ -40,6 +40,7 @@ References:
 - Windows App SDK: https://learn.microsoft.com/windows/apps/windows-app-sdk/
 - WinUI 3: https://learn.microsoft.com/windows/apps/winui/winui3/
 - Design and code Windows apps: https://learn.microsoft.com/windows/apps/design/
+- Windows keyboard shortcuts: https://support.microsoft.com/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec
 
 ## Core User Experience
 
@@ -54,7 +55,8 @@ References:
 
 - The user can hold a global hotkey to record and release it to stop recording.
 - Push-to-talk is the default interaction model.
-- The default hotkey should be chosen to avoid common Windows and application shortcuts.
+- The default hotkey is `Ctrl+Win+H`.
+- The default hotkey uses the user's requested `Ctrl+Win` modifier chord plus `H` as the trigger key. A modifier-only chord is not sufficient for reliable push-to-talk behavior.
 - The hotkey must be configurable in settings.
 - The app must validate hotkey conflicts when the user configures the hotkey.
 - The app must not accept a hotkey that conflicts with another registered hotkey when that conflict can be detected.
@@ -77,7 +79,8 @@ References:
 - The app records audio and sends it to a configured transcription provider.
 - The app should support real-time or near-real-time transcription where the selected provider supports it.
 - The app should insert final transcribed text into the active text field by default.
-- Clipboard copy and HUD display may be available as fallback or secondary behaviors.
+- If active text insertion fails, the app should copy the transcript to the clipboard, keep it in transcript history, and make the fallback visible to the user.
+- HUD display may be available as a secondary behavior.
 - The app should preserve enough metadata for debugging, such as provider name, duration, and error state, without exposing sensitive audio content unnecessarily.
 
 ## Functional Requirements
@@ -96,6 +99,7 @@ References:
 - API key entry in settings for each provider.
 - Secure API key storage using Windows-appropriate credential storage.
 - Persistent transcript history.
+- Full transcript text stored in transcript history by default.
 - Clear error handling for missing microphone permissions, unavailable provider credentials, network failures, and provider failures.
 
 ### Should Have
@@ -134,8 +138,16 @@ The transcription subsystem should be provider-based.
 
 The initial cloud providers are:
 
-- OpenAI.
-- Mistral AI.
+- OpenAI using the current best available transcription model for the chosen OpenAI transcription path. As of June 8, 2026, prefer `gpt-4o-transcribe` for the Transcription API and `gpt-4o-transcribe-latest` where a latest alias is supported by the Realtime transcription API.
+- Mistral AI using the current best available transcription model for the chosen Mistral transcription path. As of June 8, 2026, prefer `voxtral-mini-latest` for `audio/transcriptions`.
+
+Provider model choices should use stable provider aliases such as `latest` where the provider supports them and where product behavior does not require a pinned snapshot. If a provider deprecates or replaces a model, agents should update the provider adapter and documentation based on official provider docs.
+
+References:
+
+- OpenAI speech to text: https://platform.openai.com/docs/guides/speech-to-text
+- OpenAI realtime transcription: https://platform.openai.com/docs/guides/realtime-transcription
+- Mistral audio transcription: https://docs.mistral.ai/capabilities/audio/
 
 Each provider should expose a common contract for:
 
@@ -157,6 +169,8 @@ The app should not bind core UI workflow directly to one provider's API shape. A
 - Avoid storing audio by default after transcription completes.
 - Store credentials securely using Windows-appropriate facilities.
 - Store provider API keys outside plain-text app configuration, using Windows Credential Manager or an equivalent Windows-native secure credential mechanism.
+- Because transcript history stores full transcript text by default, the app must provide a clear way to delete transcript history.
+- Persistent transcript history should default to a bounded retention window of 30 days, with settings for shorter retention, longer retention, and manual clearing.
 - Do not log raw audio, full transcripts, or credentials by default.
 - Provide clear errors when credentials or microphone access are missing.
 - Prefer explicit user control before sending audio to external services.
@@ -183,21 +197,21 @@ This repository should support coordinated agent work by maintaining:
 ## Resolved Product Decisions
 
 - Initial transcription providers: OpenAI and Mistral AI.
+- Initial OpenAI model direction: latest best OpenAI transcription model, currently `gpt-4o-transcribe` for Transcription API and `gpt-4o-transcribe-latest` where the Realtime transcription API supports that alias.
+- Initial Mistral AI model direction: latest best Mistral transcription model, currently `voxtral-mini-latest` for `audio/transcriptions`.
 - Default interaction model: push-to-talk.
+- Default hotkey: `Ctrl+Win+H`.
 - Default transcript delivery: insert into the active text field.
+- Fallback transcript delivery: copy to clipboard, retain in transcript history, and notify the user.
 - Packaging: include MSIX packaging from the start.
 - Credential entry: allow users to paste provider API keys into the app settings UI.
 - Credential storage: keep API keys in Windows-native secure credential storage, not plain-text settings.
-- Transcript history: include persistent transcript history in v1.
+- Transcript history: include persistent full-text transcript history in v1.
+- Transcript retention: default to 30 days, with user controls for retention and manual clearing.
 - HUD placement: horizontally centered near the lower portion of the screen, inset above the bottom edge.
 - HUD dismissal: automatic after transcription completes and text insertion finishes.
 - Hotkey conflicts: flag conflicts during configuration and do not accept conflicting hotkeys where detection is possible.
 
 ## Open Decisions
 
-- Which OpenAI transcription API/model should be used first?
-- Which Mistral AI transcription API/model should be used first?
-- What fallback should the app use when active text insertion fails?
-- Should transcript history store full transcript text by default, or only metadata unless the user opts in?
-- What retention controls should exist for persistent transcript history?
-- What exact default hotkey should be assigned?
+- Should provider selection default to OpenAI, Mistral AI, or whichever provider has valid credentials configured first?
