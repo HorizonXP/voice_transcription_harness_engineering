@@ -136,6 +136,8 @@ References:
 
 The transcription subsystem should be provider-based.
 
+See [ADR 0001: App-Owned Transcription Integration](decisions/0001-app-owned-transcription-integration.md) for the decision to keep OpenAI, Mistral AI, and future local models as app-level providers rather than Windows subsystem providers.
+
 The initial cloud providers are:
 
 - OpenAI using the current best available transcription model for the chosen OpenAI transcription path. As of June 8, 2026, prefer `gpt-4o-transcribe` for the Transcription API and `gpt-4o-transcribe-latest` where a latest alias is supported by the Realtime transcription API.
