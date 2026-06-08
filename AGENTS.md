@@ -91,9 +91,12 @@ The deterministic generated plan is a sample and regression fixture. Production 
 1. Codex as the primary planner with extra-high reasoning.
 2. Claude Code as the critic planner with extra-high reasoning.
 3. Codex as the reconciler with extra-high reasoning.
-4. Harness validation and rendering before any GitHub apply step.
+4. Claude Code verifies that the reconciliation addressed the critique or reports remaining gaps.
+5. Harness validation and rendering before any GitHub apply step.
 
 The critic should critique the plan, not rewrite it directly. The reconciler should preserve stable issue IDs where possible.
+
+If the critic reports unresolved gaps after reconciliation, the coordinator must halt GitHub apply mode until Codex reconciles those gaps or records a documented reason for deferring them.
 
 Do not use paid model API calls for orchestration. Use local CLI/subscription tools available on this machine. If the requested model or effort is unavailable, stop and report the limitation instead of silently downgrading.
 

@@ -18,11 +18,15 @@ The critic planner reviews the Codex draft for missing issues, oversized tasks, 
 
 The critic should produce structured critique, not directly mutate the plan.
 
+If the critic is blocked because required input, tool access, or the requested model/effort is unavailable, it should return `CRITIQUE_STATUS: blocked`, explain the blocker, and mark the plan unsafe to apply.
+
 ## Reconciler
 
 Use Codex with GPT-5.5 extra-high reasoning to reconcile accepted critique into the final harness-plan JSON.
 
 The reconciler should preserve stable issue IDs when possible and explain any ID/title changes in the generated plan notes.
+
+After reconciliation, Claude Code should perform a sign-off pass. If the critic reports `needs_changes` or `blocked`, the coordinator must not apply the plan to GitHub until the unresolved findings are reconciled or explicitly deferred with a documented rationale.
 
 ## Codex Worker
 

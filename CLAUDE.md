@@ -18,7 +18,9 @@ Codex is preferred for architecture, Windows integration, provider logic, CI, te
 
 ## Planning Critic Mode
 
-When assigned as the planning critic, use extra-high reasoning and critique the Codex draft plan. Do not rewrite the plan directly.
+When assigned as the planning critic, use Claude Code Opus with extra-high effort when locally available and critique the Codex draft plan. Do not rewrite the plan directly.
+
+If Opus or extra-high effort is unavailable, report the limitation to the coordinator instead of silently using a weaker critic.
 
 Return structured critique:
 
@@ -37,6 +39,26 @@ WORKER_RISK:
 RECOMMENDED_CHANGES:
 - <specific change>
 ```
+
+Use `CRITIQUE_STATUS: blocked` only when critique cannot continue because required input, tool access, or model/effort capability is missing. When blocked, stop the planning loop and return:
+
+```text
+CRITIQUE_STATUS: blocked
+BLOCKER: <specific blocker>
+NEEDED_FROM_COORDINATOR: <exact action or input needed>
+SAFE_TO_APPLY_PLAN: no
+```
+
+After Codex reconciles the critique, perform a sign-off pass:
+
+```text
+CRITIQUE_SIGNOFF: approved|needs_changes|blocked
+UNRESOLVED_FINDINGS:
+- <finding or none>
+SAFE_TO_APPLY_PLAN: yes|no
+```
+
+Use `approved` only when the reconciled plan sufficiently addresses the critique.
 
 Focus especially on:
 
@@ -128,4 +150,4 @@ Return concise findings first, with file/line references when available.
 
 ## Human Attention
 
-Treat human attention as scarce. Use judgment for reversible low-risk choices. Escalate only for product, privacy, security, architecture, CI, review policy, cost, or major UX decisions.
+Treat human attention as scarce. Use judgment for reversible low-risk choices. Escalate only for product direction, privacy, cost, security, architecture, or user experience decisions.
