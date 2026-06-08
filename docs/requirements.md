@@ -107,6 +107,7 @@ References:
 - Automatic startup toggle.
 - Provider selection UI.
 - API key or credential configuration flow.
+- Exactly one transcription provider is active at a time, even if credentials are saved for multiple providers.
 - Audio level visualization during recording.
 - Partial transcription display for providers that support streaming.
 - Secure handling of credentials using Windows-appropriate storage.
@@ -201,6 +202,8 @@ This repository should support coordinated agent work by maintaining:
 - Initial transcription providers: OpenAI and Mistral AI.
 - Initial OpenAI model direction: latest best OpenAI transcription model, currently `gpt-4o-transcribe` for Transcription API and `gpt-4o-transcribe-latest` where the Realtime transcription API supports that alias.
 - Initial Mistral AI model direction: latest best Mistral transcription model, currently `voxtral-mini-latest` for `audio/transcriptions`.
+- Provider selection: exactly one active provider is selected in settings; saved credentials for other providers do not make them active.
+- Initial default provider: OpenAI, until the user selects a different configured provider.
 - Default interaction model: push-to-talk.
 - Default hotkey: `Ctrl+Win+H`.
 - Default transcript delivery: insert into the active text field.
@@ -216,4 +219,4 @@ This repository should support coordinated agent work by maintaining:
 
 ## Open Decisions
 
-- Should provider selection default to OpenAI, Mistral AI, or whichever provider has valid credentials configured first?
+No open decisions currently recorded. Agents should use judgment for simple reversible choices and add new open decisions only when they materially affect product direction, privacy, cost, security, architecture, or user experience.
