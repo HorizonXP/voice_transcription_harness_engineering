@@ -2,6 +2,12 @@
 
 This repository is intended to be developed through coordinated agent work.
 
+## Repository Mission
+
+The repository demonstrates harness engineering for a native Windows 11 voice transcription app. The app implementation should be built incrementally through GitHub Issues, GitHub Pull Requests, GitHub Projects, CI, Greptile review, tmux sessions, and coordinated Codex/Claude Code agents.
+
+Do not jump straight to building the app unless assigned a specific generated issue. The harness and requirements are the source of truth for sequencing.
+
 ## Human Attention
 
 Treat human attention as the scarcest resource in the project.
@@ -10,9 +16,73 @@ Agents should use sound engineering judgment for simple, reversible, low-risk de
 
 When making a judgment call, document the decision in the relevant artifact and keep the implementation easy to revise.
 
+## Pull Request Discipline
+
+From this point forward, repository changes should go through pull requests.
+
+- Create a branch for every coherent change.
+- Use the repository pull request template.
+- Keep each PR scoped to one issue or one explicit harness task.
+- Run relevant validation before opening the PR.
+- Do not bypass Greptile review.
+- Reply to Greptile findings with the exact fix commit and concise explanation.
+- Resolve review threads when GitHub permissions allow it.
+- Keep `main` clean and protected once branch protection is enabled.
+
+## GitHub Formatting Standard
+
+Issues, PRs, generated plans, and review replies should be beautiful, human-readable, and agent-readable.
+
+Use GitHub-supported formatting when it improves comprehension:
+
+- Alerts for critical instructions.
+- Tables for metadata.
+- Tasklists for executable work and acceptance criteria.
+- Mermaid diagrams for dependency or status flow.
+- Fenced code blocks for commands, prompts, and expected output.
+- Collapsed `<details>` blocks for long logs, review details, or escalation rules.
+- Autolinks for issues, PRs, commits, and docs.
+
+Do not create ad hoc plain-text PR bodies when a template exists.
+
+## Planning Loop
+
+The deterministic generated plan is a sample and regression fixture. Production planning should use:
+
+1. Codex as the primary planner with extra-high reasoning.
+2. Claude Code as the critic planner with extra-high reasoning.
+3. Codex as the reconciler with extra-high reasoning.
+4. Harness validation and rendering before any GitHub apply step.
+
+The critic should critique the plan, not rewrite it directly. The reconciler should preserve stable issue IDs where possible.
+
+Do not use paid model API calls for orchestration. Use local CLI/subscription tools available on this machine. If the requested model or effort is unavailable, stop and report the limitation instead of silently downgrading.
+
+## Worker Expectations
+
+Generated issues should carry enough detail that low or medium reasoning workers can execute safely.
+
+Workers should:
+
+- Read `docs/requirements.md`, relevant ADRs, and the assigned issue before editing.
+- Follow the prescribed implementation plan and constraints.
+- Keep changes focused.
+- Run listed checks.
+- Open a PR using the template.
+- Report completion in the required `HARNESS_STATUS` format when operating through tmux.
+
+## Review Expectations
+
+- Codex reviews Claude Code work for architecture, correctness, maintainability, tests, Windows integration, and security.
+- Claude Code reviews Codex work for UX, visual design, interaction clarity, native Windows feel, and user-facing copy.
+- Greptile review findings are first-class work items.
+- CI failures should be handled from machine-readable summaries first, then full logs only when needed.
+
 ## Defaults
 
 - Prefer current official documentation over memory for time-sensitive platform, framework, model, API, pricing, or packaging choices.
 - Prefer native Windows 11 implementation choices over cross-platform shortcuts.
 - Prefer small, reviewable changes with clear commits.
 - Preserve user changes and do not rewrite unrelated work.
+- Prefer deterministic, idempotent scripts for GitHub setup and apply operations.
+- Prefer documenting low-risk judgment calls over asking the user to make every minor choice.
