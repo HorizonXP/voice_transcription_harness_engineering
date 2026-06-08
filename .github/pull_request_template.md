@@ -1,8 +1,10 @@
-# Summary
+# Pull Request Summary
 
-<!-- Briefly explain what changed and why. -->
+<!-- Explain what changed, why it changed, and who benefits. Keep it skimmable. -->
 
 ## Linked Issue
+
+<!-- Use Closes #123 when this PR closes a GitHub issue. For pre-issue harness work, link the generated Harness ID or doc. -->
 
 Closes #
 
@@ -14,6 +16,22 @@ Closes #
 | Implementing Agent |  |
 | Model / Effort |  |
 | Cross-Reviewer |  |
+| Branch |  |
+
+> [!IMPORTANT]
+> Keep this PR scoped to the linked issue or harness task. If the work expanded, explain why in **Scope Control**.
+
+## What Changed
+
+| Area | Change |
+| --- | --- |
+|  |  |
+
+## Scope Control
+
+- [ ] This PR closes or advances exactly one issue/task.
+- [ ] Any extra work is listed here with a reason.
+- [ ] No unrelated refactors or generated churn were introduced.
 
 ## Acceptance Criteria
 
@@ -26,8 +44,18 @@ Closes #
 ## Tests And Checks
 
 - [ ] `python3 scripts/harness_plan.py validate --plan generated/harness-plan/plan.json`
+- [ ] `python3 -m py_compile scripts/harness_plan.py scripts/github_apply_plan.py scripts/tmux_orchestrator.py`
 - [ ] Relevant app or harness tests pass.
 - [ ] CI summary artifact is clean or attached failure is understood.
+
+<details>
+<summary>Command output or check links</summary>
+
+```text
+Paste concise command output or CI links here.
+```
+
+</details>
 
 ## Reviews
 
@@ -44,11 +72,19 @@ Closes #
 
 </details>
 
+## CI Failure Handling
+
+If CI failed, start from `artifacts/ci-summary.json` before reading full logs.
+
+| Failed Check | Summary | Fix Commit |
+| --- | --- | --- |
+|  |  |  |
+
 ## Risk
 
 | Risk | Mitigation |
 | --- | --- |
-| <!-- e.g. Generated issue shape changed --> | <!-- e.g. Plan validator and dry-run output reviewed --> |
+|  |  |
 
 ## Agent Handoff
 

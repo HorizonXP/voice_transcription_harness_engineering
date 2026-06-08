@@ -49,15 +49,7 @@ Create a project for the generated plan. Suggested title:
 Voice Transcription Harness Execution
 ```
 
-Suggested fields:
-
-- Status
-- Phase
-- Agent
-- Parallel Group
-- Blocked By
-- Review State
-- CI State
+Use the project design in [GitHub Project Blueprint](github-project-blueprint.md).
 
 The current apply script creates labels, milestones, and issues. GitHub Project field automation is documented as part of the harness but should be added after the issue apply path is validated.
 

@@ -36,6 +36,8 @@ Use GitHub-supported formatting aggressively when it improves comprehension:
 - Collapsed `<details>` blocks for failure modes and long review details.
 - Autolinked issue/PR references once GitHub issues exist.
 
+Pull request templates and issue templates must follow the same formatting standard. Do not create PRs with ad hoc plain-text bodies when a template exists; use the template and fill it in.
+
 References:
 
 - GitHub basic Markdown syntax: https://docs.github.com/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
