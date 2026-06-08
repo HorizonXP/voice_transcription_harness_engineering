@@ -9,6 +9,7 @@ The repository starts intentionally small so the harness, task structure, and ag
 - Requirements: [docs/requirements.md](docs/requirements.md)
 - Harness objective: [docs/harness/objective.md](docs/harness/objective.md)
 - Harness architecture: [docs/harness/architecture.md](docs/harness/architecture.md)
+- Harness quickstart: [docs/harness/quickstart.md](docs/harness/quickstart.md)
 - Generated dry-run plan: [generated/harness-plan/README.md](generated/harness-plan/README.md)
 
 Generate and validate the dry-run plan:
