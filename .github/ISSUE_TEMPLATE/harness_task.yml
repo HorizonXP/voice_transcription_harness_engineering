@@ -6,18 +6,83 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use this template for manually created harness tasks. Generated tasks should come from `scripts/harness_plan.py`.
+        > [!IMPORTANT]
+        > Use this form for manually created harness tasks. Generated implementation tasks should come from `scripts/harness_plan.py`.
+        >
+        > A good issue should be executable by a low/medium-effort worker without forcing it to rediscover the product plan.
   - type: input
     id: harness-id
     attributes:
       label: Harness ID
       description: Stable ID, if this task comes from a generated plan.
       placeholder: VT-001
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Recommended Agent
+      description: Which worker should primarily own this?
+      options:
+        - Codex
+        - Claude Code
+        - Either
+        - Human
+    validations:
+      required: true
+  - type: dropdown
+    id: reasoning
+    attributes:
+      label: Reasoning Effort
+      description: Planning should pay the thinking cost up front. Worker effort should match risk.
+      options:
+        - Low
+        - Medium
+        - High
+        - Extra High
+    validations:
+      required: true
+  - type: textarea
+    id: metadata
+    attributes:
+      label: Work Metadata
+      description: Fill this as a compact table.
+      value: |
+        | Field | Value |
+        | --- | --- |
+        | Phase |  |
+        | Parallel Group |  |
+        | Blocked By |  |
+        | Branch |  |
+    validations:
+      required: true
   - type: textarea
     id: outcome
     attributes:
       label: Outcome
       description: What should be true when this task is complete?
+    validations:
+      required: true
+  - type: textarea
+    id: implementation-plan
+    attributes:
+      label: Prescribed Implementation Plan
+      description: Be specific enough that the worker does not need to re-plan the task.
+      value: |
+        - [ ] Read `docs/requirements.md` and relevant ADRs.
+        - [ ] Inspect existing files before editing.
+        - [ ] Implement:
+        - [ ] Verify:
+        - [ ] Open a focused PR.
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints And Non-Goals
+      description: List things the worker must not do.
+      value: |
+        - Do not make unrelated refactors.
+        - Do not silently downgrade model/reasoning instructions.
+        - Do not introduce paid model API calls for orchestration.
     validations:
       required: true
   - type: textarea
@@ -47,5 +112,29 @@ body:
       description: Checks that should pass before merge.
       value: |
         - [ ] Harness validation passes.
+    validations:
+      required: true
+  - type: textarea
+    id: escalation
+    attributes:
+      label: Failure Modes And Escalation
+      description: Conditions where the worker should stop instead of guessing.
+      value: |
+        <details>
+        <summary>Escalation rules</summary>
+
+        Stop and report if:
+
+        - Required local or GitHub tool is unavailable.
+        - A product, privacy, security, architecture, CI, or UX decision is missing.
+        - The issue conflicts with `docs/requirements.md` or an ADR.
+
+        ```text
+        HARNESS_STATUS: blocked
+        BLOCKER:
+        NEEDED_DECISION: yes|no
+        ```
+
+        </details>
     validations:
       required: true
