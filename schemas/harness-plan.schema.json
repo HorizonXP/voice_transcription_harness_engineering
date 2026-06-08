@@ -17,10 +17,12 @@
     },
     "planner": {
       "type": "object",
-      "required": ["mode", "intended_production_planner", "note"],
+      "required": ["mode", "intended_production_planner", "intended_critic", "reconciliation", "note"],
       "properties": {
         "mode": { "type": "string" },
         "intended_production_planner": { "type": "string" },
+        "intended_critic": { "type": "string" },
+        "reconciliation": { "type": "string" },
         "note": { "type": "string" }
       },
       "additionalProperties": false

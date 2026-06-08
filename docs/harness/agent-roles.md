@@ -4,6 +4,26 @@
 
 The coordinator owns issue assignment, tmux session monitoring, status updates, and escalation. It should not perform feature work unless the work is a harness bug fix or an explicit emergency unblock.
 
+## Primary Planner
+
+Use Codex with GPT-5.5 extra-high reasoning for requirements decomposition and issue planning.
+
+The primary planner produces the draft harness-plan JSON, including issue sequencing, dependency groups, model/effort recommendations, acceptance criteria, review policy, and CI expectations.
+
+## Critic Planner
+
+Use Claude Code Opus 4.8 extra-high effort as a planning critic before GitHub apply mode.
+
+The critic planner reviews the Codex draft for missing issues, oversized tasks, weak UI/design coverage, unclear acceptance criteria, bad sequencing, insufficient worker instructions, and places where the assigned model or reasoning level is too weak.
+
+The critic should produce structured critique, not directly mutate the plan.
+
+## Reconciler
+
+Use Codex with GPT-5.5 extra-high reasoning to reconcile accepted critique into the final harness-plan JSON.
+
+The reconciler should preserve stable issue IDs when possible and explain any ID/title changes in the generated plan notes.
+
 ## Codex Worker
 
 Use Codex for:
@@ -65,6 +85,7 @@ Default assignment:
 Generated issues must prescribe model and reasoning effort.
 
 - Use GPT-5.5 extra-high reasoning through the local Codex CLI for requirements decomposition and issue planning.
+- Use Claude Code Opus 4.8 extra-high effort through the local Claude CLI for planning critique.
 - Use GPT-5.5 through the local Codex CLI for Codex workers.
 - Use low reasoning only when the issue has narrow scope, clear acceptance criteria, and no architectural/security/API ambiguity.
 - Use medium reasoning for foundation, Windows integration, provider, CI, security, review-loop, and test infrastructure work.

@@ -17,6 +17,8 @@ class Worker:
 
 
 WORKERS = [
+    Worker("planner-codex-extra-high", "codex", "Codex GPT-5.5 extra-high primary planner"),
+    Worker("planner-claude-opus-critic", "claude", "Claude Code Opus 4.8 extra-high planning critic"),
     Worker("worker-codex-01", "codex", "Codex implementation worker"),
     Worker("worker-codex-review-01", "codex", "Codex reviewer"),
     Worker("worker-claude-01", "claude", "Claude Code UI/design worker"),

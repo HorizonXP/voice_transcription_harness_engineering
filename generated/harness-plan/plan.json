@@ -7,6 +7,8 @@
   "planner": {
     "mode": "deterministic_sample",
     "intended_production_planner": "GPT-5.5 extra-high reasoning via local Codex CLI/subscription",
+    "intended_critic": "Claude Code Opus 4.8 extra-high effort via local Claude CLI/subscription",
+    "reconciliation": "Codex GPT-5.5 extra-high reasoning reconciles Claude critique before validation/rendering/apply.",
     "note": "This sample plan is a regression fixture and demo output. Production decomposition should be performed by a high-reasoning planner, then validated and rendered by this harness."
   },
   "project": {

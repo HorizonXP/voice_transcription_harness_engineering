@@ -23,12 +23,38 @@ The intended production workflow is different:
 
 1. Run a high-capability planner against the requirements document.
 2. Use GPT-5.5 extra-high reasoning through the local Codex CLI/subscription for decomposition.
-3. Produce the same structured harness-plan JSON shape.
-4. Validate the plan with `scripts/harness_plan.py validate`.
-5. Render and inspect the issue markdown.
-6. Apply to GitHub only after explicit human approval.
+3. Start a separate tmux session running Claude Code Opus 4.8 extra-high effort as a planning critic.
+4. Ask Claude to critique the decomposition for missing work, unclear issues, bad sequencing, weak UI/design coverage, insufficient worker instructions, and places where low/medium-effort workers may fail.
+5. Feed Claude's critique back to the Codex planner for reconciliation.
+6. Produce the same structured harness-plan JSON shape.
+7. Validate the plan with `scripts/harness_plan.py validate`.
+8. Render and inspect the issue markdown.
+9. Apply to GitHub only after explicit human approval.
 
 Do not use paid API calls for this planning stage. Use the local Codex CLI/subscription available on the machine. If the CLI cannot provide the requested model or reasoning level, stop and document the tool limitation instead of silently downgrading the planner.
+
+The Claude critique stage should also use the local Claude Code subscription/CLI. If Opus 4.8 or extra-high effort is unavailable locally, the planner should stop and report the limitation rather than silently falling back to a weaker critique.
+
+## Planning Review Loop
+
+The production planning loop has three roles:
+
+- Primary planner: Codex, GPT-5.5, extra-high reasoning.
+- Critic planner: Claude Code, Opus 4.8, extra-high effort.
+- Reconciler: Codex, GPT-5.5, extra-high reasoning.
+
+The critic should not rewrite the plan directly. It should produce structured critique:
+
+- Missing issues.
+- Oversized issues.
+- Dependency or sequencing problems.
+- UI/UX gaps.
+- Review/CI gaps.
+- Places where the worker model or reasoning effort is too low.
+- Ambiguous acceptance criteria.
+- Human decisions that should not be asked because they are low-risk.
+
+The reconciler turns accepted critique into the final plan JSON, preserving stable IDs where possible.
 
 ## Pipeline
 

@@ -863,6 +863,8 @@ def build_plan(requirements_path: Path) -> dict[str, Any]:
         "planner": {
             "mode": "deterministic_sample",
             "intended_production_planner": "GPT-5.5 extra-high reasoning via local Codex CLI/subscription",
+            "intended_critic": "Claude Code Opus 4.8 extra-high effort via local Claude CLI/subscription",
+            "reconciliation": "Codex GPT-5.5 extra-high reasoning reconciles Claude critique before validation/rendering/apply.",
             "note": "This sample plan is a regression fixture and demo output. Production decomposition should be performed by a high-reasoning planner, then validated and rendered by this harness.",
         },
         "project": {
@@ -1147,7 +1149,8 @@ def render_summary(plan: dict[str, Any]) -> str:
         "> [!IMPORTANT]",
         "> This generated plan is a deterministic sample and regression fixture. The intended",
         "> production workflow uses GPT-5.5 extra-high reasoning through the local Codex CLI",
-        "> to perform decomposition, then uses this harness to validate, render, and apply it.",
+        "> to perform decomposition, Claude Code Opus 4.8 extra-high effort to critique it,",
+        "> and Codex extra-high to reconcile the critique before validation/render/apply.",
         "",
         "## Dependency Map",
         "",

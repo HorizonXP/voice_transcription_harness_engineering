@@ -7,6 +7,8 @@ The coordinator uses one tmux session per worker. A worker session is long-lived
 Recommended session names:
 
 - `harness-coordinator`
+- `planner-codex-extra-high`
+- `planner-claude-opus-critic`
 - `worker-codex-01`
 - `worker-codex-02`
 - `worker-claude-01`
@@ -42,6 +44,35 @@ HARNESS_STATUS: complete|blocked|needs_review
 BRANCH: <branch>
 PR: <url-or-none>
 SUMMARY: <one line>
+```
+
+## Planning Review Sessions
+
+Before applying a generated backlog, run the planner review loop:
+
+1. Start `planner-codex-extra-high`.
+2. Give Codex the requirements document and ask it to produce structured harness-plan JSON using GPT-5.5 extra-high reasoning.
+3. Start `planner-claude-opus-critic`.
+4. Give Claude the requirements document and Codex's draft plan. Ask Claude Opus 4.8 extra-high effort to critique the plan, not rewrite it.
+5. Return Claude's critique to Codex for reconciliation.
+6. Validate and render the reconciled plan.
+
+Claude critique should use this output shape:
+
+```text
+CRITIQUE_STATUS: complete|blocked
+MISSING_ISSUES:
+- <issue idea>
+OVERSIZED_ISSUES:
+- <harness id and reason>
+SEQUENCING_PROBLEMS:
+- <problem>
+UI_UX_GAPS:
+- <gap>
+WORKER_RISK:
+- <where low/medium worker may fail>
+RECOMMENDED_CHANGES:
+- <specific change>
 ```
 
 ## Stop Conditions

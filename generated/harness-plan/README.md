@@ -12,7 +12,8 @@ This is a dry-run plan. It has not created GitHub issues or projects.
 > [!IMPORTANT]
 > This generated plan is a deterministic sample and regression fixture. The intended
 > production workflow uses GPT-5.5 extra-high reasoning through the local Codex CLI
-> to perform decomposition, then uses this harness to validate, render, and apply it.
+> to perform decomposition, Claude Code Opus 4.8 extra-high effort to critique it,
+> and Codex extra-high to reconcile the critique before validation/render/apply.
 
 ## Dependency Map
 
